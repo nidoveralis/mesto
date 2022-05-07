@@ -1,0 +1,10 @@
+.profile-info__title {
+  font-weight: 500;
+}
+
+@media screen and (min-width: 1281px) {
+  .profile-info__title {
+    font-size: 42px;
+    line-height: 48px;
+  }
+}

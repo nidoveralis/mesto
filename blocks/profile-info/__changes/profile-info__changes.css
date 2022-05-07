@@ -1,0 +1,13 @@
+.profile-info__changes {
+  cursor: pointer;
+  padding: 0;
+  background-color: #000;
+  border: none;
+}
+
+@media screen and (min-width: 1281px) {
+  .profile-info__changes {
+    max-width: 24px;
+    max-height: 24px;
+  }
+}
