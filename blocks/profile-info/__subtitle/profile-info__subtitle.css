@@ -1,5 +1,6 @@
 .profile-info__subtitle {
   font-weight: 400;
+  margin: 0;
 }
 
 @media screen and (min-width: 1281px) {
