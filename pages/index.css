@@ -2,9 +2,6 @@
 @import url('../vendor/fonts/fonts.css');
 @import url('../blocks/page/page.css');
 @import url('../blocks/header/heder.css');
-<<<<<<< Updated upstream
-@import url('../blocks/header/__logo/header__logo.css');
-=======
 @import url('../blocks/header/__logo/header__logo.css');
 @import url('../blocks/content/content.css');
 @import url('../blocks/profile/profile.css');
@@ -18,4 +15,3 @@
 @import url('../blocks/element/__image/element__image.css');
 @import url('../blocks/element/__like/element__like.css');
 @import url('../blocks/element/__title/element__title.css');
->>>>>>> Stashed changes
