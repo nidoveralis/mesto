@@ -13,18 +13,13 @@
 
 @media screen and (min-width: 1281px) {
   .popup__form {
-    max-width: 430px;
-    max-height: 330px;
-    padding-top: 34px;
+    padding: 34px 34px 0;
   }
 }
 
 @media screen and (max-width: 1280px) {
   .popup__form {
-    max-width: 430px;
-    max-height: 330px;
-    padding-bottom: 34px;
-    padding-top: 34px;
+    padding: 34px 34px 0;
   }
 }
 
