@@ -1,4 +1,5 @@
-.popup__button {
+.popup__button-save {
+  cursor: pointer;
   background-color: #000;
   color: #fff;
   font-weight: 400;
@@ -9,10 +10,19 @@
   -moz-border-radius: 2px;
   -ms-border-radius: 2px;
   -o-border-radius: 2px;
+  transition: opacity .3s linear;
+  -webkit-transition: opacity .3s linear;
+  -moz-transition: opacity .3s linear;
+  -ms-transition: opacity .3s linear;
+  -o-transition: opacity .3s linear;
+}
+
+.popup__button-save:hover {
+  opacity: .8;
 }
 
 @media screen and (min-width: 1281px) {
-  .popup__button {
+  .popup__button-save {
     margin: 29px auto 37px;
     font-size: 18px;
     line-height: 22px;
@@ -21,7 +31,7 @@
 }
 
 @media screen and (max-width: 1280px) {
-  .popup__button {
+  .popup__button-save {
     margin: 29px auto 37px;
     font-size: 18px;
     line-height: 22px;
@@ -30,7 +40,7 @@
 }
 
 @media screen and (max-width: 425px) {
-  .popup__button {
+  .popup__button-save {
     font-size: 14px;
     line-height: 16px;
   }
