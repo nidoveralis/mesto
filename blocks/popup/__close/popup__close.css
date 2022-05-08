@@ -1,0 +1,5 @@
+.popup__close {
+  background-color: #000;
+  align-self: flex-end;
+  border: none;
+}
