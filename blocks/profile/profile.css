@@ -1,6 +1,7 @@
 .profile {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 @media screen and (min-width: 1281px) {
@@ -17,9 +18,16 @@
   }
 }
 
+@media screen and (max-width: 900px) {
+  .profile {
+    margin: 40px 19px 51px;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .profile {
     margin-top: 42px;
     margin-bottom: 36px;
+    flex-direction: column;
   }
 }

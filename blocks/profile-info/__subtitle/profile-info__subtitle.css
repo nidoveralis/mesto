@@ -9,3 +9,17 @@
     line-height: 21px;
   }
 }
+
+@media screen and (max-width: 1280px) {
+  .profile-info__subtitle {
+    font-size: 18px;
+    line-height: 21px;
+  }
+}
+
+@media screen and (min-width: 425px) {
+  .profile-info__subtitle {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}

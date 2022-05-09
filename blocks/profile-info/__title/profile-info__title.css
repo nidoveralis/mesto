@@ -18,3 +18,11 @@
     padding-bottom: 8px;
   }
 }
+
+@media screen and (max-width: 425px) {
+  .profile-info__title {
+    font-size: 27px;
+    line-height: 32px;
+    padding-bottom: 0;
+  }
+}

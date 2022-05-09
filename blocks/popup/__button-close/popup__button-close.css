@@ -1,5 +1,16 @@
 .popup__button-close {
   align-self: flex-end;
   border: none;
-  padding-top: 8px;
+}
+
+@media screen and (min-width: 1281px) {
+  .popup__button-close {
+    padding-bottom: 3px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .popup__button-close {
+    padding-bottom: 3px;
+  }
 }

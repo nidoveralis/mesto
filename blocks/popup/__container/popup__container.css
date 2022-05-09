@@ -6,6 +6,18 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  max-width: 526px;
-  padding-top: 16px;
+}
+
+@media screen and (min-width: 1281px) {
+  .popup__container {
+    min-width: 510px;
+    padding-top: 15px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .popup__container {
+    min-width: 510px;
+    padding-top: 15px;
+  }
 }
