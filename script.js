@@ -7,7 +7,7 @@ let jobInput = document.querySelector('.popup__input-job');
 let profileName = document.querySelector('.profile-info__title');
 let profileJob = document.querySelector('.profile-info__subtitle');
 
-function openPopup() {
+function openPopup() {// open popup
   popup.classList.add('popup_opened');
   nameInput.value =  profileName.textContent;
   jobInput.value =  profileJob.textContent;
