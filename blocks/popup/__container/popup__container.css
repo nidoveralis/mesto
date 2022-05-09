@@ -1,0 +1,11 @@
+.popup__container {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  max-width: 526px;
+  padding-top: 16px;
+}

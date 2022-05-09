@@ -1,0 +1,5 @@
+.popup__button-close {
+  align-self: flex-end;
+  border: none;
+  padding-top: 8px;
+}
