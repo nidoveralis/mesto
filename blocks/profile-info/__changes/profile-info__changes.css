@@ -1,4 +1,5 @@
 .profile-info__changes {
+  cursor: pointer;
   padding: 0;
   background-color: #000;
   border: none;
