@@ -1,12 +1,6 @@
-.header__logo{
-  background-color: black;
-  fill: black;
-  stroke: black;
-}
 @media screen and (min-width: 1281px) {
   .header__logo {
     max-width: 142px;
-    width: 100%;
     max-height: 33px;
   }
 }
@@ -20,8 +14,6 @@
 
 @media screen and (max-width: 1000px) {
   .header__logo {
-    max-width: 142px;
-    max-height: 33px;
     padding-left: 19px;
   }
 }
