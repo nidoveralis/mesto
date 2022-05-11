@@ -1,0 +1,43 @@
+.popup__button-close {
+  border: none;
+  background-image: url('../../../images/icon_close.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  align-self: flex-end;
+  position: absolute;
+  margin: 0;
+}
+
+@media screen and (min-width: 1281px) {
+  .popup__button-close {
+    padding-bottom: 6px;
+    min-width: 32px;
+    min-height: 32px;
+    top: 154px;
+    left: 102%;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .popup__button-close {
+    padding-bottom: 6px;
+    min-width: 32px;
+    min-height: 32px;
+    top: 154px;
+    left: 102%;
+  }
+}
+
+
+@media screen and (max-width: 560px) {
+  .popup__button-close {
+    left: auto;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .popup__button-close {
+    min-width: 20px;
+    top: 87px;
+  }
+}

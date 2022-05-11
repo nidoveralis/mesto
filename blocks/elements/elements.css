@@ -1,28 +1,5 @@
 .elements {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  /*display: grid;
-  gap: 17px 20px;*/
-}
-
-/*@media screen and (min-width: 1281px) {
-  .elements {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 17px 20px;
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  .elements {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 17px 20px;
-  }
-}
-
-@media screen and (max-width: 425px) {
-  .elements {
-    grid-template-columns: 1fr;
-    row-gap: 20px;
-  }
+  justify-content: space-around;
 }

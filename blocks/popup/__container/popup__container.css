@@ -4,8 +4,28 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100%;
-  max-width: 526px;
-  padding-top: 16px;
+}
+
+@media screen and (min-width: 1281px) {
+  .popup__container {
+    padding-top: 195px;
+    max-width: 510px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .popup__container {
+    padding-top: 195px;
+    max-width: 510px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .popup__container {
+    max-width: 282px;
+    max-height: 322px;
+    padding-top: 123px;
+  }
 }

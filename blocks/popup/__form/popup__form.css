@@ -13,21 +13,20 @@
 
 @media screen and (min-width: 1281px) {
   .popup__form {
-    padding: 34px 34px 0;
+    padding: 34px 36px 0;
   }
 }
 
 @media screen and (max-width: 1280px) {
   .popup__form {
-    padding: 34px 34px 0;
+    padding: 34px 36px 0;
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 460px) {
   .popup__form {
     max-width: 282px;
     max-height: 322px;
-    padding-bottom: 25px;
-    padding-top: 25px;
+    padding: 26px 21px;
   }
 }

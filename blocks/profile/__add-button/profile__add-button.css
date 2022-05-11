@@ -4,7 +4,6 @@
   border: 2px #fff solid;
   padding: 12px 62px;
   align-content: center;
-  cursor: pointer;
 }
 
 @media screen and (min-width: 1281px) {
@@ -19,8 +18,10 @@
   }
 }
 
-@media screen and (max-width: 452px) {
+@media screen and (max-width: 590px) {
   .profile__add-button {
     max-width: 100%;
+    margin-left: 0;
+    padding: 12px 128px;
   }
 }

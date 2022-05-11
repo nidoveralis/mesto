@@ -1,4 +1,22 @@
 .element__like {
+  cursor: pointer;
   background-image: url('../../../images/icon_heart.svg');
   background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 20px;
+  transition: opacity .5s linear;
+  -webkit-transition: opacity .5s linear;
+  -moz-transition: opacity .5s linear;
+  -ms-transition: opacity .5s linear;
+  -o-transition: opacity .5s linear;
+}
+
+.element__like:hover {
+  opacity: .5;
+}
+
+.element__like_active {
+  background-image: url('../../../images/icon_black-heart.svg');
+  background-repeat: no-repeat;
+  background-position: center;
 }
