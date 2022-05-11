@@ -18,9 +18,17 @@
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 600px) {
   .profile-info {
     margin-left: 0;
+    justify-content: center;
+    margin-top: 26px;
+    margin-bottom: 32px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile-info {
     max-width: 282px;
   }
 }

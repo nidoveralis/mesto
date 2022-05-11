@@ -6,14 +6,14 @@
 
 @media screen and (min-width: 1281px) {
   .header {
-    padding-top: 45px;
+    padding-top: 46px;
     padding-bottom: 37px;
   }
 }
 
 @media screen and (max-width: 1280px) {
   .header {
-    padding-top: 45px;
+    padding-top: 46px;
     padding-bottom: 37px;
   }
 }

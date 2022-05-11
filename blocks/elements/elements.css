@@ -3,9 +3,3 @@
   flex-wrap: wrap;
   justify-content: space-around;
 }
-
-@media screen and (max-width: 900px) {
-  .elements {
-    padding: 0 19px;
-  }
-}

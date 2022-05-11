@@ -1,6 +1,9 @@
 .profile-info__subtitle {
   font-weight: 400;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (min-width: 1281px) {
@@ -17,9 +20,9 @@
   }
 }
 
-@media screen and (min-width: 425px) {
+@media screen and (max-width: 600px) {
   .profile-info__subtitle {
     font-size: 14px;
-    line-height: 16px;
+    line-height: 17px;
   }
 }

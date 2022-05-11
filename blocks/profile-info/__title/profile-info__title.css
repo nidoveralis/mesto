@@ -1,6 +1,10 @@
 .profile-info__title {
   font-weight: 500;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 294px;
 }
 
 @media screen and (min-width: 1281px) {
@@ -22,7 +26,8 @@
 @media screen and (max-width: 425px) {
   .profile-info__title {
     font-size: 27px;
-    line-height: 32px;
-    padding-bottom: 0;
+    line-height: 33px;
+    padding-bottom: 8px;
+    padding-left: 28px;
   }
 }
