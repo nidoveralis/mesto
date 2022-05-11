@@ -1,11 +1,10 @@
 .profile__avatar {
-  background-image: url('../../../images/imagejack-kysto.jpg');
   background-repeat: no-repeat;
-  border-radius: 60px;
-  -webkit-border-radius: 60px;
-  -moz-border-radius: 60px;
-  -ms-border-radius: 60px;
-  -o-border-radius: 60px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
   height: 120px;
   width: 120px;
 }

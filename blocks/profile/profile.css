@@ -4,14 +4,7 @@
   flex-wrap: wrap;
 }
 
-@media screen and (min-width: 1281px) {
-  .profile {
-    margin-top: 40px;
-    margin-bottom: 51px;
-  }
-}
-
-@media screen and (max-width: 1280px) {
+@media screen and (min-width: 901px) {
   .profile {
     margin-top: 40px;
     margin-bottom: 51px;

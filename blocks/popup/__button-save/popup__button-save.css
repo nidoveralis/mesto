@@ -21,16 +21,7 @@
   opacity: .8;
 }
 
-@media screen and (min-width: 1281px) {
-  .popup__button-save {
-    margin: 20px auto 37px;
-    font-size: 18px;
-    line-height: 22px;
-    padding: 12px 130px;
-  }
-}
-
-@media screen and (max-width: 1280px) {
+@media screen and (min-width: 461px) {
   .popup__button-save {
     margin: 20px auto 37px;
     font-size: 18px;

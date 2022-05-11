@@ -3,14 +3,7 @@
   margin: 0 auto;
 }
 
-@media screen and (min-width: 1281px) {
-  .footer {
-    padding-top: 44px;
-    padding-bottom: 60px;
-  }
-}
-
-@media screen and (max-width: 1280px) {
+@media screen and (min-width: 1001px) {
   .footer {
     padding-top: 44px;
     padding-bottom: 60px;

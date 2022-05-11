@@ -8,15 +8,7 @@
   border: none;
 }
 
-@media screen and (min-width: 1281px) {
-  .profile-info__edit {
-    min-width: 24px;
-    min-height: 24px;
-    margin-left: 19px;
-  }
-}
-
-@media screen and (max-width: 1280px) {
+@media screen and (min-width: 426px) {
   .profile-info__edit {
     min-width: 24px;
     min-height: 24px;
