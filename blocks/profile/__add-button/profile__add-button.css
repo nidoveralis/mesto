@@ -2,7 +2,6 @@
   background-image: url('../../../images/icon_add-button.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: auto;
   height: 50px;
   background-color: #000;
   border: 2px #fff solid;
@@ -13,18 +12,19 @@
   -ms-border-radius: 2px;
   -o-border-radius: 2px;
 }
-
-@media screen and (min-width: 591px) {
+@media screen and (min-width: 740px) {
   .profile__add-button {
     margin-left: auto;
-    padding: 12px 73px;
+    min-width: 150px;
+    background-size: 20px;
   }
 }
 
-@media screen and (max-width: 590px) {
+@media screen and (max-width: 739px) {
   .profile__add-button {
-    max-width: 100%;
+    margin-top: 34px;
     margin-left: 0;
-    padding: 12px 128px;
+    min-width: 100%;
+    background-size: 16px;
   }
 }

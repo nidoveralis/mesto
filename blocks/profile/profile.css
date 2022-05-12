@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  margin-bottom: 51px;
 }
 
 @media screen and (min-width: 901px) {
@@ -18,7 +19,7 @@
   }
 }
 
-@media screen and (max-width: 590px) {
+@media screen and (max-width: 600px) {
   .profile {
     margin: 42px 0 36px;
     flex-direction: column;
