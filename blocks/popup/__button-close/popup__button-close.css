@@ -14,22 +14,16 @@
     padding-bottom: 6px;
     min-width: 32px;
     min-height: 32px;
-    left: 102%;
-    top: 0;
+    right: -40px;
+    top: -40px;
   }
 }
 
 @media screen and (max-width: 551px) {
   .popup__button-close {
-    left: auto;
-    top: 0;
+    right: 0;
+    top: -36px;
     min-width: 20px;
     min-height: 20px;
-  }
-}
-
-@media screen and (max-width: 425px) {
-  .popup__button-close {
-    top: 87px;
   }
 }
