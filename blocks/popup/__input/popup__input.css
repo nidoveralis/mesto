@@ -12,13 +12,7 @@
   outline: none;
 }
 
-@media screen and (min-width: 1281px) {
-  .popup__input {
-    margin-bottom: 29px;
-  }
-}
-
-@media screen and (max-width: 1280px) {
+@media screen and (min-width: 426px) {
   .popup__input {
     margin-bottom: 29px;
   }
@@ -26,6 +20,7 @@
 
 @media screen and (max-width: 425px) {
   .popup__input {
-    margin-bottom: 30px;
+    margin-bottom: 32px;
+    padding-left: 0;
   }
 }

@@ -7,15 +7,7 @@
   max-width: 294px;
 }
 
-@media screen and (min-width: 1281px) {
-  .profile-info__title {
-    font-size: 42px;
-    line-height: 48px;
-    padding-bottom: 8px;
-  }
-}
-
-@media screen and (max-width: 1280px) {
+@media screen and (min-width: 426px) {
   .profile-info__title {
     font-size: 42px;
     line-height: 48px;
@@ -28,5 +20,6 @@
     font-size: 27px;
     line-height: 33px;
     padding-left: 28px;
+    padding-bottom: 6px;
   }
 }

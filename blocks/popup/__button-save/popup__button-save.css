@@ -5,6 +5,7 @@
   font-weight: 400;
   align-items: center;
   font-family: 'Inter', Arial, sans-serif;
+  border:none;
   border-radius: 2px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -21,21 +22,12 @@
   opacity: .8;
 }
 
-@media screen and (min-width: 1281px) {
+@media screen and (min-width: 461px) {
   .popup__button-save {
     margin: 20px auto 37px;
     font-size: 18px;
     line-height: 22px;
-    padding: 12px 130px;
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  .popup__button-save {
-    margin: 20px auto 37px;
-    font-size: 18px;
-    line-height: 22px;
-    padding: 12px 130px;
+    padding: 14px 132px;
   }
 }
 
@@ -43,8 +35,8 @@
   .popup__button-save {
     font-size: 14px;
     line-height: 16px;
-    padding: 13px 81px;
-    margin-top: 14px;
+    padding: 15px 82px;
+    margin-top: 11px;
     margin-bottom: 0px;
   }
 }

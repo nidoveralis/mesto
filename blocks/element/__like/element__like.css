@@ -1,4 +1,5 @@
 .element__like {
+  border: none;
   cursor: pointer;
   background-image: url('../../../images/icon_heart.svg');
   background-repeat: no-repeat;
@@ -9,14 +10,11 @@
   -moz-transition: opacity .5s linear;
   -ms-transition: opacity .5s linear;
   -o-transition: opacity .5s linear;
+  background-color: #fff;
+  height: 19px;
+  align-self: center;
 }
 
 .element__like:hover {
   opacity: .5;
-}
-
-.element__like_active {
-  background-image: url('../../../images/icon_black-heart.svg');
-  background-repeat: no-repeat;
-  background-position: center;
 }

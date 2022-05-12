@@ -11,13 +11,7 @@
   -o-border-radius: 10px;
 }
 
-@media screen and (min-width: 1281px) {
-  .popup__form {
-    padding: 34px 36px 0;
-  }
-}
-
-@media screen and (max-width: 1280px) {
+@media screen and (min-width: 461px) {
   .popup__form {
     padding: 34px 36px 0;
   }
@@ -25,8 +19,6 @@
 
 @media screen and (max-width: 460px) {
   .popup__form {
-    max-width: 282px;
-    max-height: 322px;
-    padding: 26px 21px;
+    padding: 27px 23px;
   }
 }

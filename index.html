@@ -16,64 +16,63 @@
     </header>
     <main class="content">
       <section class="profile">
-        <div class="profile__avatar"></div>
+        <div class="profile__avatar" style="background-image: url('./images/imagejack-kysto.jpg');"></div>
         <div class="profile-info">
           <h1 class="profile-info__title">Жак-Ив Кусто</h1>
-          <button class="profile-info__edit button"></button>
+          <button class="profile-info__edit button" type="submit"></button>
           <p class="profile-info__subtitle">Исследователь океана</p>
         </div>
-        <button class="profile__add-button button"><img src="./images/icon_add-button.svg"
-            alt="Кнопка добавить"></button>
+        <button class="profile__add-button button" type="button"></button>
       </section>
       <section class="elements">
         <div class="element">
           <img src="./images/Belgium.jpg" alt="Порт Антверпена" class="element__image">
             <h2 class="element__title">Антверпен, Бельгия</h2>
-            <div class="element__like"></div>
+            <button class="element__like button" type="button"></button>
         </div>
         <div class="element">
           <img src="./images/Cambridge.jpg" alt="Центр Рэя и Марии Стата" class="element__image">
           <h2 class="element__title">Кембридж, США</h2>
-          <div class="element__like"></div>
+          <button class="element__like button" type="button"></button>
         </div>
         <div class="element">
           <img src="./images/Dubai_United_Arab_Emirates.jpg" alt="Фасад здания" class="element__image">
           <h2 class="element__title">Дубай, ОАЭ</h2>
-          <div class="element__like"></div>
+          <button class="element__like button" type="button"></button>
         </div>
         <div class="element">
           <img src="./images/France.jpg" alt="Переход" class="element__image">
           <h2 class="element__title">Париж, Франция</h2>
-          <div class="element__like"></div>
+          <button class="element__like button" type="button"></button>
         </div>
         <div class="element">
           <img src="./images/arl.jpg" alt="Зеркальная башня" class="element__image">
           <h2 class="element__title">Арль, Франция</h2>
-          <div class="element__like"></div>
+          <button class="element__like button" type="button"></button>
         </div>
         <div class="element">
           <img src="./images/Rotterdam.jpg" alt="Квадратное здание" class="element__image">
           <h2 class="element__title">Ротердам, Нидерланды</h2>
-          <div class="element__like"></div>
+          <button class="element__like button" type="button"></button>
         </div>
       </section>
     </main>
     <footer class="footer">
       <div class="footer__copyright">&copy; 2022 Mesto Russia</div>
     </footer>
-    <section class="popup">
+    <div class="popup">
       <div class="popup__container">
-        <div class="popup__button-close button"></div>
-        <form class="popup__form">
+        <button class="popup__button-close button" type="button"></button>
+        <form class="popup__form" name="personal-info">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" class="popup__input popup__input-name">
-          <input type="text" class="popup__input popup__input-job">
+          <input type="text" class="popup__input popup__input_type_name" name="name">
+          <input type="text" class="popup__input popup__input_type_job" name="job">
           <input type="submit" value="Сохранить" class="popup__button-save">
         </form>
       </div>
-    </section>
+    </div>
   </div>
-  <script src="./script.js"></script>
+  <script src="./scripts/indes.js"></script>
 </body>
 
 </html>
