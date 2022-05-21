@@ -26,7 +26,7 @@
             alt="Кнопка добавить"></button>
       </section>
       <section class="elements">
-        <div class="element">
+        <!--<div class="element">
           <img src="./images/Belgium.jpg" alt="Порт Антверпена" class="element__image">
             <h2 class="element__title">Антверпен, Бельгия</h2>
             <div class="element__like"></div>
@@ -54,14 +54,24 @@
         <div class="element">
           <img src="./images/Rotterdam.jpg" alt="Квадратное здание" class="element__image">
           <h2 class="element__title">Ротердам, Нидерланды</h2>
+<<<<<<< Updated upstream
           <div class="element__like"></div>
         </div>
+=======
+          <button class="element__like button" type="button"></button>
+        </div>-->
+>>>>>>> Stashed changes
       </section>
     </main>
     <footer class="footer">
       <div class="footer__copyright">&copy; 2022 Mesto Russia</div>
     </footer>
+<<<<<<< Updated upstream
     <section class="popup">
+=======
+
+    <div class="popup popup-profile">
+>>>>>>> Stashed changes
       <div class="popup__container">
         <div class="popup__button-close button"></div>
         <form class="popup__form">
@@ -71,7 +81,32 @@
           <input type="submit" value="Сохранить" class="popup__button-save">
         </form>
       </div>
+<<<<<<< Updated upstream
     </section>
+=======
+    </div>
+
+    <div class="popup new-mesto ">
+      <div class="popup__container">
+        <button class="popup__button-close button popup-mesto__button-close" type="button"></button>
+        <form class="popup__form" name="add-mesto">
+          <h2 class="popup__title">Новое место</h2>
+          <input type="text" class="popup__input" value="Название">
+          <input type="text" class="popup__input" value="Ссылка на картинку">
+          <input type="submit" value="Создать" class="popup__button-save">
+        </form>
+      </div>
+    </div>
+
+
+    <template class="new-elements">
+      <div class="new-element element">
+      <img class="new-element__image element__image">
+      <h2 class="new-element__title element__title"></h2>
+      <button class="new-element__like element__like button" type="button"></button>
+      </div>
+    </template>
+>>>>>>> Stashed changes
   </div>
   <script src="./script.js"></script>
 </body>
