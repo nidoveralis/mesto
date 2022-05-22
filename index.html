@@ -25,7 +25,7 @@
         <button class="profile__add-button button" type="button"></button>
       </section>
       <section class="elements">
-        <div class="element">
+        <!--<div class="element">
           <img src="./images/Belgium.jpg" alt="Порт Антверпена" class="element__image">
             <h2 class="element__title">Антверпен, Бельгия</h2>
             <button class="element__like button" type="button"></button>
@@ -36,7 +36,7 @@
           <button class="element__like button" type="button"></button>
         </div>
         <div class="element">
-          <img src="./images/Dubai_United_Arab_Emirates.jpg" alt="Фасад здания" class="element__image">
+          <img src="./images/Dubai_jpgUnited_Arab_Emirates." alt="Фасад здания" class="element__image">
           <h2 class="element__title">Дубай, ОАЭ</h2>
           <button class="element__like button" type="button"></button>
         </div>
@@ -54,15 +54,16 @@
           <img src="./images/Rotterdam.jpg" alt="Квадратное здание" class="element__image">
           <h2 class="element__title">Ротердам, Нидерланды</h2>
           <button class="element__like button" type="button"></button>
-        </div>
+        </div>-->
       </section>
     </main>
     <footer class="footer">
       <div class="footer__copyright">&copy; 2022 Mesto Russia</div>
     </footer>
-    <div class="popup">
+
+    <div class="popup popup-profile">
       <div class="popup__container">
-        <button class="popup__button-close button" type="button"></button>
+        <button class="popup__button-close button popup-profile__button-close" type="button"></button>
         <form class="popup__form" name="personal-info">
           <h2 class="popup__title">Редактировать профиль</h2>
           <input type="text" class="popup__input popup__input_type_name" name="name">
@@ -71,6 +72,25 @@
         </form>
       </div>
     </div>
+
+    <div class="popup popup-elements">
+      <div class="popup__container">
+        <button class="popup__button-close button popup-elements__button-close" type="button"></button>
+        <form class="popup__form" name="personal-info">
+          <h2 class="popup__title">Новое место</h2>
+          <input type="text" class="popup__input" name="name-element" value="Название">
+          <input type="text" class="popup__input" name="link-element" value="Ссылка на картинку">
+          <input type="submit" value="Создать" class="popup__button-save popup-elements__button-create">
+        </form>
+      </div>
+    </div>
+    <template class="add-element">
+      <div class="element">
+        <img src="" class="element__image">
+        <h2 class="element__title"></h2>
+        <button class="element__like button" type="button"></button>
+      </div>
+    </template>
   </div>
   <script src="./scripts/indes.js"></script>
 </body>
