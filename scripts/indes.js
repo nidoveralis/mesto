@@ -12,7 +12,7 @@ let profileName = document.querySelector('.profile-info__title');
 let profileJob = document.querySelector('.profile-info__subtitle');
 let titleInput = document.querySelector('.popup__input_type_title');
 let linkInput = document.querySelector('.popup__input_type_link');
-let buttonLike = document.querySelector('.element__like');
+//let buttonLike = document.querySelectorAll('.element__like');
 
 const initialCards = [
   {
@@ -102,4 +102,4 @@ closeProfilePopup.addEventListener('click', closePopup);
 closeElementsPopup.addEventListener('click', closeNewElement);
 formProfile.addEventListener('submit', formSubmitHandler);
 formElement.addEventListener('submit', addElement);
-buttonLike.addEventListener('click', like);
+//buttonLike.addEventListener('clikc', like);
