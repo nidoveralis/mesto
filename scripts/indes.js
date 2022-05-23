@@ -1,18 +1,15 @@
-let popupProfile = document.querySelector('.popup-profile');
-let popupElements = document.querySelector('.popup-elements');
-//let popupPicture = document.querySelector('.popup-picture');
-let closeProfilePopup = document.querySelector('.popup-profile__button-close');
-let closeElementsPopup = document.querySelector('.popup-elements__button-close');
-let profileEdit = document.querySelector('.profile-info__edit');
-let newElement = document.querySelector('.profile__add-button');
-let formProfile = document.querySelector('.form-profile');
-let formElement = document.querySelector('.form-element');
-let nameInput = document.querySelector('.popup__input_type_name');
-let jobInput = document.querySelector('.popup__input_type_job');
-let profileName = document.querySelector('.profile-info__title');
-let profileJob = document.querySelector('.profile-info__subtitle');
-let titleInput = document.querySelector('.popup__input_type_title');
-let linkInput = document.querySelector('.popup__input_type_link');
+const popupProfile = document.querySelector('.popup-profile');
+const popupElements = document.querySelector('.popup-elements');
+const profileEdit = document.querySelector('.profile-info__edit');
+const newElement = document.querySelector('.profile__add-button');
+const formProfile = document.querySelector('.form-profile');
+const formElement = document.querySelector('.form-element');
+const nameInput = document.querySelector('.popup__input_type_name');
+const jobInput = document.querySelector('.popup__input_type_job');
+const profileName = document.querySelector('.profile-info__title');
+const profileJob = document.querySelector('.profile-info__subtitle');
+const titleInput = document.querySelector('.popup__input_type_title');
+const linkInput = document.querySelector('.popup__input_type_link');
 
 const initialCards = [
   {
@@ -47,17 +44,19 @@ function openPopup() {
   jobInput.value =  profileJob.textContent;
 };
 
-function closePopup() {
-  popupProfile.classList.remove('popup_opened');
-};
-
 function openNewElement() {
   popupElements.classList.add('popup_opened');
 };
 
-function closeNewElement() {
-  popupElements.classList.remove('popup_opened');
-};
+document.querySelectorAll('.popup__button-close').forEach((button)=>{
+  button.addEventListener('click', closePopup)
+})
+
+function closePopup(e) {
+  let closeButton = e.target;
+  let itemElement = closeButton.closest('.popup');
+  itemElement.classList.remove('popup_opened');
+}
 
 function formSubmitHandler(e) {
   e.preventDefault();
@@ -76,13 +75,17 @@ function showCart(item) {
   const newElement = templeteElement.cloneNode(true);
   const elementTitle = newElement.querySelector('.element__title');
   const elementImage = newElement.querySelector('.element__image');
+  const popupImage = newElement.querySelector('.popup__image');
   let buttonLike = newElement.querySelector('.element__like');
   let buttonDelete = newElement.querySelector('.element__delete');
+  let buttonClose = newElement.querySelector('.popup__button-close');
   elementTitle.textContent = item.name;
   elementImage.src = item.link;
+  popupImage.src = item.link;
   buttonLike.addEventListener('click', like);
   buttonDelete.addEventListener('click', deleteElement);
   elementImage.addEventListener('click', popim)
+  buttonClose.addEventListener('click', closePopup)
   elements.prepend(newElement);
 };
 
@@ -91,7 +94,7 @@ function addElement(e) {
   let newCart = {name: titleInput.value, link: linkInput.value};
   titleInput.value = '';
   linkInput.value = '';
-  closeNewElement();
+  closePopup()
   showCart(newCart);
 };
 
@@ -116,7 +119,7 @@ function popim(e) {
 window.onload = renderCards(initialCards);
 profileEdit.addEventListener('click', openPopup);
 newElement.addEventListener('click', openNewElement);
-closeProfilePopup.addEventListener('click', closePopup);
-closeElementsPopup.addEventListener('click', closeNewElement);
+//closeProfilePopup.addEventListener('click', closePopup);
+//closeElementsPopup.addEventListener('click', closeNewElement);
 formProfile.addEventListener('submit', formSubmitHandler);
 formElement.addEventListener('submit', addElement);
