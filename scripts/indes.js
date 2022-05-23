@@ -1,5 +1,6 @@
 let popupProfile = document.querySelector('.popup-profile');
 let popupElements = document.querySelector('.popup-elements');
+//let popupPicture = document.querySelector('.popup-picture');
 let closeProfilePopup = document.querySelector('.popup-profile__button-close');
 let closeElementsPopup = document.querySelector('.popup-elements__button-close');
 let profileEdit = document.querySelector('.profile-info__edit');
@@ -81,20 +82,17 @@ function showCart(item) {
   elementImage.src = item.link;
   buttonLike.addEventListener('click', like);
   buttonDelete.addEventListener('click', deleteElement);
+  elementImage.addEventListener('click', popim)
   elements.prepend(newElement);
 };
 
 function addElement(e) {
   e.preventDefault();
-  if(titleInput.value==='' || linkInput.value===''){
-    closeNewElement();
-  } else{
   let newCart = {name: titleInput.value, link: linkInput.value};
   titleInput.value = '';
   linkInput.value = '';
   closeNewElement();
   showCart(newCart);
-  }
 };
 
 function like(e) {
@@ -106,6 +104,13 @@ function deleteElement(e) {
   let elementButton = e.target;
   let itemElement = elementButton.closest('.element');
   itemElement.remove();
+};
+
+function popim(e) {
+  let elementButton = e.target;
+  let itemElement = elementButton.closest('.element');
+  let itemPicture = itemElement.querySelector('.popup-picture')
+  itemPicture.classList.add('popup_opened');
 };
 
 window.onload = renderCards(initialCards);

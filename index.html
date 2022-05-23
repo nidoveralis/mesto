@@ -48,18 +48,26 @@
         <button class="popup__button-close button popup-elements__button-close" type="button"></button>
         <form class="popup__form form-element" name="personal-info">
           <h2 class="popup__title">Новое место</h2>
-          <input type="text" class="popup__input popup__input_type_title" name="name-element" placeholder="Название">
-          <input type="text" class="popup__input popup__input_type_link" name="link-element" placeholder="Ссылка на картинку">
+          <input type="text" class="popup__input popup__input_type_title" name="name-element" placeholder="Название" required>
+          <input type="text" class="popup__input popup__input_type_link" name="link-element" placeholder="Ссылка на картинку" required>
           <input type="submit" value="Создать" class="popup__button-save">
         </form>
       </div>
     </div>
+
     <template class="add-element">
       <div class="element">
         <button class="element__delete button" type="button"></button>
         <img src="" class="element__image">
         <h2 class="element__title"></h2>
         <button class="element__like button" type="button"></button>
+        <div class="popup popup-picture">
+          <div class="popup__container">
+            <button class="popup__button-close button popup-picture__button-close" type="button"></button>
+            <img src="" class="element-picture__image element__image">
+            <h2 class="element__title"></h2>
+          </div>
+        </div>
       </div>
     </template>
   </div>
