@@ -13,4 +13,5 @@
   display: grid;
   grid-template-rows: 282px auto;
   grid-template-columns: auto 44px;
+  position: relative;
 }
