@@ -12,7 +12,6 @@ let profileName = document.querySelector('.profile-info__title');
 let profileJob = document.querySelector('.profile-info__subtitle');
 let titleInput = document.querySelector('.popup__input_type_title');
 let linkInput = document.querySelector('.popup__input_type_link');
-//let buttonLike = document.querySelectorAll('.element__like');
 
 const initialCards = [
   {
@@ -39,7 +38,7 @@ const initialCards = [
     name: "Ротердам, Нидерланды",
     link: "./images/Rotterdam.jpg"
   },
-]
+];
 
 function openPopup() {
   popupProfile.classList.add('popup_opened');
@@ -59,11 +58,6 @@ function closeNewElement() {
   popupElements.classList.remove('popup_opened');
 };
 
-function like() {
-  //buttonLike.classList.add('element__like_active');
-  console.log('mfdklfj')
-};
-
 function formSubmitHandler(e) {
   e.preventDefault();
   profileName.textContent = nameInput.value;
@@ -71,8 +65,8 @@ function formSubmitHandler(e) {
   closePopup()
 };
 
-function renderCards() {
-  initialCards.forEach(item =>showCart(item));
+function renderCards(data) {
+  data.forEach(item =>showCart(item));
 };
 
 function showCart(item) {
@@ -81,25 +75,43 @@ function showCart(item) {
   const newElement = templeteElement.cloneNode(true);
   const elementTitle = newElement.querySelector('.element__title');
   const elementImage = newElement.querySelector('.element__image');
+  let buttonLike = newElement.querySelector('.element__like');
+  let buttonDelete = newElement.querySelector('.element__delete');
   elementTitle.textContent = item.name;
   elementImage.src = item.link;
+  buttonLike.addEventListener('click', like);
+  buttonDelete.addEventListener('click', deleteElement);
   elements.prepend(newElement);
 };
 
 function addElement(e) {
   e.preventDefault();
-  initialCards.unshift({name: titleInput.value, link: linkInput.value});
+  if(titleInput.value==='' || linkInput.value===''){
+    closeNewElement();
+  } else{
+  let newCart = {name: titleInput.value, link: linkInput.value};
+  titleInput.value = '';
+  linkInput.value = '';
   closeNewElement();
-  showCart(initialCards[0]);
+  showCart(newCart);
+  }
 };
 
+function like(e) {
+  let elementButton = e.target;
+  elementButton.classList.toggle('element__like_active');
+};
 
+function deleteElement(e) {
+  let elementButton = e.target;
+  let itemElement = elementButton.closest('.element');
+  itemElement.remove();
+};
 
-window.onload = renderCards();
+window.onload = renderCards(initialCards);
 profileEdit.addEventListener('click', openPopup);
 newElement.addEventListener('click', openNewElement);
 closeProfilePopup.addEventListener('click', closePopup);
 closeElementsPopup.addEventListener('click', closeNewElement);
 formProfile.addEventListener('submit', formSubmitHandler);
 formElement.addEventListener('submit', addElement);
-//buttonLike.addEventListener('clikc', like);
