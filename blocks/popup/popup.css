@@ -1,4 +1,7 @@
 .popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -6,8 +9,14 @@
   right: 0;
   height: 100%;
   width: 100%;
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility .2s, opacity .2s linear;
   z-index: 3;
+  -webkit-transition: visibility .2s, opacity .2s linear;
+  -moz-transition: visibility .2s, opacity .2s linear;
+  -ms-transition: visibility .2s, opacity .2s linear;
+  -o-transition: visibility .2s, opacity .2s linear;
 }
 
 .popup::before {
