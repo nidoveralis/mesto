@@ -1,6 +1,5 @@
 .element__like {
   border: none;
-  cursor: pointer;
   background-image: url('../../../images/icon_heart.svg');
   background-repeat: no-repeat;
   background-position: center;
