@@ -44,12 +44,12 @@ const dataCards = [
   },
 ];
 
-function popupOpen(popup) {
+function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
 function editProfile() {
-  popupOpen(popupProfile);
+  openPopup(popupProfile);
   nameInput.value =  profileName.textContent;
   jobInput.value =  profileJob.textContent;
 };
@@ -57,7 +57,7 @@ function editProfile() {
 function openAddElementForm() {
   titleInput.value="";
   linkInput.value="";
-  popupOpen(popupAddElement);
+  openPopup(popupAddElement);
 }
 
 function handleProfileFormSubmit(e) {
@@ -68,10 +68,10 @@ function handleProfileFormSubmit(e) {
 };
 
 function renderCards(data) {
-  data.forEach(item =>addCarts(item));
+  data.forEach(item =>addCardElement(item));
 };
 
-function addCarts(elem) {
+function addCardElement(elem) {
   prependCardElement(createCard(elem));
 }
 
@@ -88,7 +88,7 @@ function createCard(item) {
   buttonLike.addEventListener('click', ()=>like(buttonLike));
   buttonDelete.addEventListener('click', deleteElement);
   elementImage.addEventListener('click', ()=>{
-    popupOpen(popupPictire); 
+    openPopup(popupPictire); 
     popupImage.src = item.link;
     popupImage.alt = item.name;
     popupSubtitle.textContent = item.name;
@@ -105,23 +105,23 @@ function prependCardElement(card) {
 
 function handeleAddElementFormSubmit(e) {
   e.preventDefault();
-  let newCart = {name: titleInput.value, link: linkInput.value};
+  const newCart = {name: titleInput.value, link: linkInput.value};
   closePopup(popupAddElement);
-  addCarts(newCart);
+  addCardElement(newCart);
   formAddElement.reset();
 };
 
 function deleteElement(e) {
-  let elementButton = e.target;
-  let itemElement = elementButton.closest('.element');
+  const elementButton = e.target;
+  const itemElement = elementButton.closest('.element');
   itemElement.remove();
 };
 
 document.querySelectorAll('.popup__button-close').forEach((button)=>button.addEventListener('click', closePopupByButton));
 
 function closePopupByButton(event) {
-let closeButton = event.target;
-let itemElement = closeButton.closest('.popup');
+const closeButton = event.target;
+const itemElement = closeButton.closest('.popup');
 closePopup(itemElement);
 };
 
