@@ -1,16 +1,5 @@
 .elements {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-@media screen and (min-width: 901px) {
-  .elements {
-    justify-content: space-between;
-  }
-}
-
-@media screen and (max-width: 900px) {
-  .elements {
-    justify-content: space-around;
-  }
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, 282px);
 }
