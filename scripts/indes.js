@@ -45,14 +45,20 @@ const dataCards = [
 ];
 
 function popupOpen(popup) {
-  popup.classList.toggle('popup_opened');
+  popup.classList.add('popup_opened');
 }
 
 function editProfile() {
-  popupOpen(popupProfile)
+  popupOpen(popupProfile);
   nameInput.value =  profileName.textContent;
   jobInput.value =  profileJob.textContent;
 };
+
+function openAddElementForm() {
+  titleInput.value="";
+  linkInput.value="";
+  popupOpen(popupAddElement);
+}
 
 function handleProfileFormSubmit(e) {
   e.preventDefault();
@@ -62,12 +68,16 @@ function handleProfileFormSubmit(e) {
 };
 
 function renderCards(data) {
-  data.forEach(item =>{createCard(item);});//tyt
+  data.forEach(item =>addCarts(item));
 };
 
-function like(button) {
-  button.classList.toggle('element__like_active')
+function addCarts(elem) {
+  prependCardElement(createCard(elem));
 }
+
+function like(button) {
+  button.classList.toggle('element__like_active');
+};
 
 function createCard(item) {
   const newElement = templeteElement.cloneNode(true);
@@ -86,18 +96,18 @@ function createCard(item) {
   elementTitle.textContent = item.name;
   elementImage.src = item.link;
   elementImage.alt = item.name;
-  prependCardElement(newElement);///tyt
+  return newElement
 };
 
 function prependCardElement(card) {
   cardsContainer.prepend(card);
 };
 
-function addElement(e) {//tyt
+function handeleAddElementFormSubmit(e) {
   e.preventDefault();
   let newCart = {name: titleInput.value, link: linkInput.value};
   closePopup(popupAddElement);
-  createCard(newCart);
+  addCarts(newCart);
   formAddElement.reset();
 };
 
@@ -122,5 +132,5 @@ popup.classList.remove('popup_opened');
 window.onload = renderCards(dataCards);
 editButton.addEventListener('click', editProfile);
 formProfile.addEventListener('submit', handleProfileFormSubmit);
-addButton.addEventListener('click',()=>popupOpen(popupAddElement));
-formAddElement.addEventListener('submit', addElement);
+addButton.addEventListener('click', openAddElementForm);
+formAddElement.addEventListener('submit', handeleAddElementFormSubmit);
