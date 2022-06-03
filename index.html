@@ -36,8 +36,14 @@
         <button class="popup__button-close button" type="button"></button>
         <form class="popup__form form-profile" name="personal-info">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" class="popup__input popup__input_type_name" name="name">
-          <input type="text" class="popup__input popup__input_type_job" name="job">
+          <fieldset class="popup__field">
+            <input id="name-input" type="text" class="popup__input popup__input_type_name" name="name" placeholder="Имя" minlength="2" maxlength="40" required>
+            <span class="name-input-error form__input-error"></span>
+          </fieldset> 
+          <fieldset class="popup__field">
+          <input  id="job-input" type="text" class="popup__input popup__input_type_job" name="job" placeholder="О себе" minlength="2" maxlength="200" required>
+          <span class="job-input-error form__input-error"></span> 
+          </fieldset>
           <input type="submit" value="Сохранить" class="popup__button-save">
         </form>
       </div>
@@ -48,8 +54,10 @@
         <button class="popup__button-close button" type="button"></button>
         <form class="popup__form form-element" name="personal-info">
           <h2 class="popup__title">Новое место</h2>
-          <input type="text" class="popup__input popup__input_type_title" name="name-element" placeholder="Название" required>
-          <input type="text" class="popup__input popup__input_type_link" name="link-element" placeholder="Ссылка на картинку" required>
+          <input id="name-element-input" type="text" class="popup__input popup__input_type_title" name="name-element" placeholder="Название" required>
+          <span class="name-element-input-error form__input-error"></span> 
+          <input id="like-element-input" type="text" class="popup__input popup__input_type_link" name="link-element" placeholder="Ссылка на картинку" required>
+          <span class="like-element-input-error form__input-error"></span> 
           <input type="submit" value="Создать" class="popup__button-save">
         </form>
       </div>

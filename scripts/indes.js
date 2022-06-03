@@ -1,4 +1,3 @@
-let popup = document.querySelectorAll('.popup');
 const editButton = document.querySelector('.profile-info__edit');
 const popupProfile = document.querySelector('.popup-profile');
 const formProfile = document.querySelector('.form-profile');
@@ -13,7 +12,67 @@ const titleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
 const elements = document.querySelector('.elements');
 const templeteElement = document.querySelector('.add-element').content;
+///validation
 
+function showError(formElement, inputElement, errorMessage) {
+  const spanError = formElement.querySelector(`.${inputElement.id}-error`);
+  spanError.textContent = errorMessage;
+  formElement.classList.remove('popup__button-save_active')
+  spanError.classList.add('form-error')
+}
+
+const hideError = (formElement, inputElement) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('form__input_type_error');
+  errorElement.classList.remove('form__input-error_active');
+  errorElement.textContent = '';
+};
+
+function isValid(formElement, inputElement, errorMessage) {
+  if (!inputElement.validity.valid) {
+    showError(formElement, inputElement, errorMessage);
+  } else {
+    hideError(formElement, inputElement);
+  }
+};
+
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  const buttonElement = formElement.querySelector('.popup__button-save');
+  toggleButtonState(inputList, buttonElement);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', function () {
+      isValid(formElement, inputElement, inputElement.validationMessage);
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+};
+
+const enableValidation = (formElement) => {
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', function (evt) {
+      evt.preventDefault();
+    });
+    setEventListeners(formElement);
+  });
+
+  const hasInvalidInput = (inputList)=>{
+    return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  }); 
+};
+
+const toggleButtonState=(inputList, buttonElement)=>{
+  if(hasInvalidInput(inputList)){
+    buttonElement.classList.remove('popup__button-save_active');
+  }else{
+    buttonElement.classList.add('popup__button-save_active');
+  }
+}
+
+enableValidation();
+////
 const dataCards = [
   {
     name: "Антверпен, Бельгия",
