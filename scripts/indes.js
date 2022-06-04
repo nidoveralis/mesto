@@ -12,67 +12,6 @@ const titleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
 const elements = document.querySelector('.elements');
 const templeteElement = document.querySelector('.add-element').content;
-///validation
-
-function showError(formElement, inputElement, errorMessage) {
-  const spanError = formElement.querySelector(`.${inputElement.id}-error`);
-  spanError.textContent = errorMessage;
-  formElement.classList.remove('popup__button-save_active')
-  spanError.classList.add('form-error')
-}
-
-const hideError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('form__input_type_error');
-  errorElement.classList.remove('form__input-error_active');
-  errorElement.textContent = '';
-};
-
-function isValid(formElement, inputElement, errorMessage) {
-  if (!inputElement.validity.valid) {
-    showError(formElement, inputElement, errorMessage);
-  } else {
-    hideError(formElement, inputElement);
-  }
-};
-
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  const buttonElement = formElement.querySelector('.popup__button-save');
-  toggleButtonState(inputList, buttonElement);
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
-      isValid(formElement, inputElement, inputElement.validationMessage);
-      toggleButtonState(inputList, buttonElement);
-    });
-  });
-};
-
-const enableValidation = (formElement) => {
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
-  formList.forEach((formElement) => {
-    formElement.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-    });
-    setEventListeners(formElement);
-  });
-
-  const hasInvalidInput = (inputList)=>{
-    return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  }); 
-};
-
-const toggleButtonState=(inputList, buttonElement)=>{
-  if(hasInvalidInput(inputList)){
-    buttonElement.classList.remove('popup__button-save_active');
-  }else{
-    buttonElement.classList.add('popup__button-save_active');
-  }
-}
-
-enableValidation();
-////
 const dataCards = [
   {
     name: "Антверпен, Бельгия",
@@ -104,6 +43,7 @@ function editProfile() {
   popupProfile.classList.add('popup_opened');
   nameInput.value =  profileName.textContent;
   jobInput.value =  profileJob.textContent;
+  closeEsc(popupProfile);
 };
 
 function formSubmitProfile(e) {
@@ -115,6 +55,7 @@ function formSubmitProfile(e) {
 
 function openNewElement() {
   popupAddElement.classList.add('popup_opened');
+  closeEsc(popupAddElement);
 };
 
 function renderCards(data) {
@@ -142,6 +83,7 @@ function showCart(item) {
   popupImage.alt = item.name;
   popupSubtitle.textContent = item.name;
   showElements(newElement);
+  closeEsc(popupPictire);
 };
 
 function showElements(card) {
@@ -165,8 +107,16 @@ function deleteElement(e) {
 
 document.querySelectorAll('.popup__button-close').forEach((button)=>button.addEventListener('click', closePopup));
 
-function closePopup(event) {
-let closeButton = event.target;
+function closeEsc(arg){
+  document.addEventListener('keydown', function (e) {
+    if(e.keyCode === 27) {
+      closeItems(arg);
+    };
+    });
+};
+
+function closePopup(e) {
+let closeButton = e.target;
 let itemElement = closeButton.closest('.popup');
 closeItems(itemElement);
 };

@@ -1,6 +1,8 @@
 .popup__button-save {
   cursor: pointer;
-  color: #000;
+  color: #fff;
+  opacity: 1;
+  background-color: #000;
   font-weight: 400;
   align-items: center;
   font-family: 'Inter', Arial, sans-serif;
@@ -14,7 +16,6 @@
   -moz-transition: opacity .3s linear;
   -ms-transition: opacity .3s linear;
   -o-transition: opacity .3s linear;
-  opacity: .2;
 }
 
 .popup__submit:hover {
