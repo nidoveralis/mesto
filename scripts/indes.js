@@ -83,6 +83,8 @@ function showCart(item) {
   popupImage.alt = item.name;
   popupSubtitle.textContent = item.name;
   showElements(newElement);
+  closeEsc(popupPictire);
+  getAllPopup();
 };
 
 function showElements(card) {
@@ -106,8 +108,27 @@ function deleteElement(e) {
 
 document.querySelectorAll('.popup__button-close').forEach((button)=>button.addEventListener('click', closePopup));
 
-function closePopup(event) {
-let closeButton = event.target;
+function getAllPopup(){
+  document.querySelectorAll('.popup').forEach((pop)=>{
+  pop.addEventListener('click',closeOverlay)
+});
+};
+
+function closeOverlay(e){
+  let closePop = e.target;
+  closeItems(closePop);
+};
+
+function closeEsc(arg){
+  document.addEventListener('keydown', function (e) {
+    if(e.keyCode === 27) {
+      closeItems(arg);
+    };
+    });
+};
+
+function closePopup(e) {
+let closeButton = e.target;
 let itemElement = closeButton.closest('.popup');
 closeItems(itemElement);
 };
@@ -116,6 +137,7 @@ function closeItems(arg) {
 arg.classList.remove('popup_opened');
 };
 
+getAllPopup()
 window.onload = renderCards(dataCards);
 editButton.addEventListener('click', editProfile);
 formProfile.addEventListener('submit', formSubmitProfile);
