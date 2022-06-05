@@ -6,21 +6,15 @@
   line-height: 16px;
   width: 100%;
   max-height: 35px;
+  margin-bottom: 5px;
 }
 
 .popup__input:focus {
   outline: none;
 }
 
-@media screen and (min-width: 426px) {
-  .popup__input {
-    margin-bottom: 29px;
-  }
-}
-
 @media screen and (max-width: 425px) {
   .popup__input {
-    margin-bottom: 32px;
     padding-left: 0;
   }
 }

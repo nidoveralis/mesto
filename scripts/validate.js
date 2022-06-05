@@ -1,6 +1,6 @@
 //при открытии в профиле должна быть активная кнопка
-//закрыть на кликом мимо формы
 //валидация и массив
+
 const enableValidation = () => {//запускает проверку и передаёт элементы всем функц
   const formList = Array.from(document.querySelectorAll('.popup__form'));//определяет от какой формы
   formList.forEach((formElement) => {

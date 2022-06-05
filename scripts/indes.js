@@ -1,4 +1,3 @@
-let popup = document.querySelectorAll('.popup');
 const editButton = document.querySelector('.profile-info__edit');
 const popupProfile = document.querySelector('.popup-profile');
 const formProfile = document.querySelector('.form-profile');
@@ -13,7 +12,6 @@ const titleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
 const elements = document.querySelector('.elements');
 const templeteElement = document.querySelector('.add-element').content;
-
 const dataCards = [
   {
     name: "Антверпен, Бельгия",
@@ -45,6 +43,7 @@ function editProfile() {
   popupProfile.classList.add('popup_opened');
   nameInput.value =  profileName.textContent;
   jobInput.value =  profileJob.textContent;
+  closeEsc(popupProfile);
 };
 
 function formSubmitProfile(e) {
@@ -56,6 +55,7 @@ function formSubmitProfile(e) {
 
 function openNewElement() {
   popupAddElement.classList.add('popup_opened');
+  closeEsc(popupAddElement);
 };
 
 function renderCards(data) {

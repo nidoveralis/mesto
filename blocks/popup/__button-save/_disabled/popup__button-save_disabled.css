@@ -1,0 +1,6 @@
+.popup__button-save_disabled {
+  opacity: .2;
+  color: #000;
+  background-color: transparent;
+  cursor: auto;
+}
