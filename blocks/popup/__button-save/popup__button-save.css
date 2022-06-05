@@ -1,11 +1,11 @@
 .popup__button-save {
   cursor: pointer;
-  background-color: #000;
   color: #fff;
+  opacity: 1;
+  background-color: #000;
   font-weight: 400;
   align-items: center;
   font-family: 'Inter', Arial, sans-serif;
-  border:none;
   border-radius: 2px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
