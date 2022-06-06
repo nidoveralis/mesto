@@ -12,7 +12,6 @@ const titleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
 const elements = document.querySelector('.elements');
 const templeteElement = document.querySelector('.add-element').content;
-
 const dataCards = [
   {
     name: "Антверпен, Бельгия",
