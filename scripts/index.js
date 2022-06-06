@@ -109,7 +109,7 @@ function addElement(e) {
 function deleteElement(e) {
   let elementButton = e.target;
   let itemElement = elementButton.closest('.element');
-  if(itemElement)
+  //if(itemElement)
   itemElement.remove();
 };
 
