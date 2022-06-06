@@ -1,4 +1,5 @@
 .popup__container {
+  cursor: auto;
   position: relative;
   margin: 0 auto;
   display: flex;
