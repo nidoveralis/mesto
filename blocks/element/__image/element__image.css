@@ -7,4 +7,13 @@
   background-position: center;
   background-size: cover;
   cursor: pointer;
+  transition: opacity .2s linear;
+  -webkit-transition: opacity .2s linear;
+  -moz-transition: opacity .2s linear;
+  -ms-transition: opacity .2s linear;
+  -o-transition: opacity .2s linear;
+}
+
+.element__image:hover {
+  opacity: .8;
 }
