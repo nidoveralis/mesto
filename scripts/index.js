@@ -58,6 +58,12 @@ function openNewElement() {
   closeEsc(popupAddElement);
 };
 
+function getAllPopup(){
+  document.querySelectorAll('.popup').forEach((item)=>{
+  item.addEventListener('click',closeOverlay)
+});
+};
+
 function renderCards(data) {
   data.forEach(item =>showCart(item));
 };
@@ -103,20 +109,15 @@ function addElement(e) {
 function deleteElement(e) {
   let elementButton = e.target;
   let itemElement = elementButton.closest('.element');
+  if(itemElement)
   itemElement.remove();
 };
 
 document.querySelectorAll('.popup__button-close').forEach((button)=>button.addEventListener('click', closePopup));
 
-function getAllPopup(){
-  document.querySelectorAll('.popup').forEach((pop)=>{
-  pop.addEventListener('click',closeOverlay)
-});
-};
-
 function closeOverlay(e){
-  let closePop = e.target;
-  closeItems(closePop);
+  let popupOverlay = e.target;
+  closeItems(popupOverlay);
 };
 
 function closeEsc(arg){

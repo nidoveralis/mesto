@@ -1,6 +1,3 @@
-//при открытии в профиле должна быть активная кнопка
-//валидация и массив
-
 const enableValidation = () => {//запускает проверку и передаёт элементы всем функц
   const formList = Array.from(document.querySelectorAll('.popup__form'));//определяет от какой формы
   formList.forEach((formElement) => {
@@ -15,7 +12,7 @@ const enableValidation = () => {//запускает проверку и пер�
 const setEventListeners = (formElement) => {//кнопки и инпуты в нужной форме
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
   const buttonElement = formElement.querySelector('.popup__button-save');
-  //toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       isValid(formElement, inputElement, inputElement.validationMessage);///передаёт на проверку инпут
@@ -55,20 +52,17 @@ const toggleButtonState=(inputList, buttonElement)=>{
   if(hasInvalidInput(inputList)){
     buttonElement.classList.add('popup__button-save_disabled');
     buttonElement.setAttribute('disabled', true);
-    //buttonElement.classList.remove(inactiveButtonClass);
   }else{
     buttonElement.classList.remove('popup__button-save_disabled');
     buttonElement.removeAttribute('disabled');
-    //buttonElement.classList.add(inactiveButtonClass);
   }
 };
 
-enableValidation();
-//enableValidation({
-  //formSelector: '.popup__form',
- // inputSelector: '.popup__input',
- // submitButtonSelector: '.popup__button',
- // inactiveButtonClass: 'popup__button_disabled',
-//  inputErrorClass: 'popup__input_type_error',
-//  errorClass: 'popup__error_visible'
-//}); 
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}); 
