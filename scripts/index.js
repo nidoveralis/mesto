@@ -44,23 +44,24 @@ const dataCards = [
   },
 ];
 
-function popupOpen(popup) {
+function openPupup(popup) {
   popup.classList.add('popup_opened');
   closeEsc(popup);
-  closeOverlay(popup)
-}
+  closeOverlay(popup);
+};
 
 function editProfile() {
-  popupOpen(popupProfile);
+  openPupup(popupProfile);
   nameInput.value =  profileName.textContent;
   jobInput.value =  profileJob.textContent;
+  enableValidation(popupProfile);
 };
 
 function openAddElementForm() {
   titleInput.value="";
   linkInput.value="";
-  popupOpen(popupAddElement);
-}
+  openPupup(popupAddElement);
+};
 
 function handleProfileFormSubmit(e) {
   e.preventDefault();
@@ -75,7 +76,7 @@ function renderCards(data) {
 
 function addCarts(elem) {
   prependCardElement(createCard(elem));
-}
+};
 
 function like(button) {
   button.classList.toggle('element__like_active');
@@ -88,14 +89,14 @@ function createCard(item) {
   const popupImage = newElement.querySelector('.popup__image');
   const popupSubtitle = newElement.querySelector('.popup__subtitle');
   const buttonLike = newElement.querySelector('.element__like');
-  let buttonDelete = newElement.querySelector('.element__delete');
-  let popupPictire = newElement.querySelector('.popup-picture');
-  let popupButtonClose = newElement.querySelector('.popup__button-close');
+  const buttonDelete = newElement.querySelector('.element__delete');
+  const popupPictire = newElement.querySelector('.popup-picture');
+  const popupButtonClose = newElement.querySelector('.popup__button-close');
   popupButtonClose.addEventListener('click',closePopupByButton);
   buttonLike.addEventListener('click', ()=> buttonLike.classList.toggle('element__like_active'));
   buttonDelete.addEventListener('click', deleteElement);
   elementImage.addEventListener('click', ()=>{
-    popupPictire.classList.add('popup_opened'); 
+    openPupup(popupPictire);
     closeEsc(popupPictire);
     closeOverlay(popupPictire);
   });
@@ -114,23 +115,23 @@ function prependCardElement(card) {
 
 function handeleAddElementFormSubmit(e) {
   e.preventDefault();
-  let newCart = {name: titleInput.value, link: linkInput.value};
+  const newCart = {name: titleInput.value, link: linkInput.value};
   closePopup(popupAddElement);
   addCarts(newCart);
   formAddElement.reset();
 };
 
 function deleteElement(e) {
-  let elementButton = e.target;
-  let itemElement = elementButton.closest('.element');
+  const elementButton = e.target;
+  const itemElement = elementButton.closest('.element');
   itemElement.remove();
 };
 
 document.querySelectorAll('.popup__button-close').forEach((button)=>button.addEventListener('click', closePopupByButton));
 
 function closePopupByButton(e) {
-  let closeButton = e.target;
-  let itemElement = closeButton.closest('.popup');
+  const closeButton = e.target;
+  const itemElement = closeButton.closest('.popup');
   closePopup(itemElement);
 };
 
@@ -138,25 +139,14 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 };
 
-function closeOverlay(item){
-  item.addEventListener('click',(e)=>
-  {let popupOverlay = e.target;
-  closePopup(popupOverlay);})
+function closeOverlay(item) {
+  item.addEventListener('click',(e)=>{
+    const popupOverlay = e.target;
+    closePopup(popupOverlay);
+  });
 };
 
-//function getAllPopup(){
-  //document.querySelectorAll('.popup').forEach((item)=>{
-  //item.addEventListener('click',closeOverlay)
-//});
-//};
-
-
-//function closeOverlay(e){
-  //let popupOverlay = e.target;
-  //closeItems(popupOverlay);
-//};
-
-function closeEsc(arg){
+function closeEsc(arg) {
   document.addEventListener('keydown', function (e) {
     if(e.keyCode === 27) {
       closePopup(arg);
@@ -169,3 +159,12 @@ editButton.addEventListener('click', editProfile);
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 addButton.addEventListener('click', openAddElementForm);
 formAddElement.addEventListener('submit', handeleAddElementFormSubmit);
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});
