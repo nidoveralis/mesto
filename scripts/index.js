@@ -44,23 +44,24 @@ const dataCards = [
   },
 ];
 
-function popupOpen(popup) {
+function openPupup(popup) {
   popup.classList.add('popup_opened');
   closeEsc(popup);
-  closeOverlay(popup)
-}
+  closeOverlay(popup);
+};
 
 function editProfile() {
-  popupOpen(popupProfile);
+  openPupup(popupProfile);
   nameInput.value =  profileName.textContent;
   jobInput.value =  profileJob.textContent;
+  enableValidation(popupProfile);
 };
 
 function openAddElementForm() {
   titleInput.value="";
   linkInput.value="";
-  popupOpen(popupAddElement);
-}
+  openPupup(popupAddElement);
+};
 
 function handleProfileFormSubmit(e) {
   e.preventDefault();
@@ -75,7 +76,7 @@ function renderCards(data) {
 
 function addCarts(elem) {
   prependCardElement(createCard(elem));
-}
+};
 
 function like(button) {
   button.classList.toggle('element__like_active');
@@ -95,7 +96,7 @@ function createCard(item) {
   buttonLike.addEventListener('click', ()=> buttonLike.classList.toggle('element__like_active'));
   buttonDelete.addEventListener('click', deleteElement);
   elementImage.addEventListener('click', ()=>{
-    popupPictire.classList.add('popup_opened'); 
+    openPupup(popupPictire);
     closeEsc(popupPictire);
     closeOverlay(popupPictire);
   });
@@ -138,14 +139,14 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 };
 
-function closeOverlay(item){
+function closeOverlay(item) {
   item.addEventListener('click',(e)=>{
     const popupOverlay = e.target;
     closePopup(popupOverlay);
-  })
+  });
 };
 
-function closeEsc(arg){
+function closeEsc(arg) {
   document.addEventListener('keydown', function (e) {
     if(e.keyCode === 27) {
       closePopup(arg);
@@ -158,3 +159,12 @@ editButton.addEventListener('click', editProfile);
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 addButton.addEventListener('click', openAddElementForm);
 formAddElement.addEventListener('submit', handeleAddElementFormSubmit);
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});
