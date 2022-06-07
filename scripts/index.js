@@ -88,9 +88,9 @@ function createCard(item) {
   const popupImage = newElement.querySelector('.popup__image');
   const popupSubtitle = newElement.querySelector('.popup__subtitle');
   const buttonLike = newElement.querySelector('.element__like');
-  let buttonDelete = newElement.querySelector('.element__delete');
-  let popupPictire = newElement.querySelector('.popup-picture');
-  let popupButtonClose = newElement.querySelector('.popup__button-close');
+  const buttonDelete = newElement.querySelector('.element__delete');
+  const popupPictire = newElement.querySelector('.popup-picture');
+  const popupButtonClose = newElement.querySelector('.popup__button-close');
   popupButtonClose.addEventListener('click',closePopupByButton);
   buttonLike.addEventListener('click', ()=> buttonLike.classList.toggle('element__like_active'));
   buttonDelete.addEventListener('click', deleteElement);
@@ -114,23 +114,23 @@ function prependCardElement(card) {
 
 function handeleAddElementFormSubmit(e) {
   e.preventDefault();
-  let newCart = {name: titleInput.value, link: linkInput.value};
+  const newCart = {name: titleInput.value, link: linkInput.value};
   closePopup(popupAddElement);
   addCarts(newCart);
   formAddElement.reset();
 };
 
 function deleteElement(e) {
-  let elementButton = e.target;
-  let itemElement = elementButton.closest('.element');
+  const elementButton = e.target;
+  const itemElement = elementButton.closest('.element');
   itemElement.remove();
 };
 
 document.querySelectorAll('.popup__button-close').forEach((button)=>button.addEventListener('click', closePopupByButton));
 
 function closePopupByButton(e) {
-  let closeButton = e.target;
-  let itemElement = closeButton.closest('.popup');
+  const closeButton = e.target;
+  const itemElement = closeButton.closest('.popup');
   closePopup(itemElement);
 };
 
@@ -139,22 +139,11 @@ function closePopup(popup) {
 };
 
 function closeOverlay(item){
-  item.addEventListener('click',(e)=>
-  {let popupOverlay = e.target;
-  closePopup(popupOverlay);})
+  item.addEventListener('click',(e)=>{
+    const popupOverlay = e.target;
+    closePopup(popupOverlay);
+  })
 };
-
-//function getAllPopup(){
-  //document.querySelectorAll('.popup').forEach((item)=>{
-  //item.addEventListener('click',closeOverlay)
-//});
-//};
-
-
-//function closeOverlay(e){
-  //let popupOverlay = e.target;
-  //closeItems(popupOverlay);
-//};
 
 function closeEsc(arg){
   document.addEventListener('keydown', function (e) {
