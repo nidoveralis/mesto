@@ -17,6 +17,15 @@ const popupSubtitle = document.querySelector('.popup__subtitle');
 const popupPictire = document.querySelector('.popup-picture');
 const popupButtonClose = document.querySelector('.popup__button-close');
 
+const objectValid = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-save',
+  inactiveButtonClass: 'popup__button-save_disabled',
+  inputErrorClass: 'popup__input_error',
+  errorClass: 'form-error'
+}
+
 const dataCards = [
   {
     name: "Антверпен, Бельгия",
@@ -46,7 +55,7 @@ const dataCards = [
 
 function openPupup(popup) {
   popup.classList.add('popup_opened');
-  closeEsc(popup);
+  document.addEventListener('keydown', (e)=>closeEsc(e, popup));
   closeOverlay(popup);
 };
 
@@ -54,13 +63,13 @@ function editProfile() {
   openPupup(popupProfile);
   nameInput.value =  profileName.textContent;
   jobInput.value =  profileJob.textContent;
-  enableValidation(popupProfile);
+  validInut(popupProfile, 'popup__input_error');
 };
 
 function openAddElementForm() {
-  titleInput.value="";
-  linkInput.value="";
+  formAddElement.reset();
   openPupup(popupAddElement);
+  validInut(popupAddElement, 'popup__input_error');
 };
 
 function handleProfileFormSubmit(e) {
@@ -86,26 +95,20 @@ function createCard(item) {
   const newElement = templeteElement.cloneNode(true);
   const elementTitle = newElement.querySelector('.element__title');
   const elementImage = newElement.querySelector('.element__image');
-  const popupImage = newElement.querySelector('.popup__image');
-  const popupSubtitle = newElement.querySelector('.popup__subtitle');
   const buttonLike = newElement.querySelector('.element__like');
   const buttonDelete = newElement.querySelector('.element__delete');
-  const popupPictire = newElement.querySelector('.popup-picture');
-  const popupButtonClose = newElement.querySelector('.popup__button-close');
   popupButtonClose.addEventListener('click',closePopupByButton);
   buttonLike.addEventListener('click', ()=> buttonLike.classList.toggle('element__like_active'));
   buttonDelete.addEventListener('click', deleteElement);
-  elementImage.addEventListener('click', ()=>{
+  elementImage.addEventListener('click', ()=> {
     openPupup(popupPictire);
-    closeEsc(popupPictire);
-    closeOverlay(popupPictire);
+    popupImage.src = item.link;
+    popupImage.alt = item.name;
+    popupSubtitle.textContent = item.name;
   });
   elementTitle.textContent = item.name;
   elementImage.src = item.link;
   elementImage.alt = item.name;
-  popupImage.src = item.link;
-  popupImage.alt = item.name;
-  popupSubtitle.textContent = item.name;
   return newElement;
 };
 
@@ -119,6 +122,7 @@ function handeleAddElementFormSubmit(e) {
   closePopup(popupAddElement);
   addCarts(newCart);
   formAddElement.reset();
+  disableButton(formAddElement.querySelector('.popup__button-save'))
 };
 
 function deleteElement(e) {
@@ -137,6 +141,7 @@ function closePopupByButton(e) {
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeEsc);
 };
 
 function closeOverlay(item) {
@@ -146,25 +151,15 @@ function closeOverlay(item) {
   });
 };
 
-function closeEsc(arg) {
-  document.addEventListener('keydown', function (e) {
-    if(e.keyCode === 27) {
-      closePopup(arg);
-    };
-    });
+function closeEsc(e,arg) {
+  if(e.key === 'Escape') {
+    closePopup(arg);
+  };
 };
 
 window.onload = renderCards(dataCards);
+enableValidation(objectValid);
 editButton.addEventListener('click', editProfile);
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 addButton.addEventListener('click', openAddElementForm);
 formAddElement.addEventListener('submit', handeleAddElementFormSubmit);
-
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
