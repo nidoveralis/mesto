@@ -122,7 +122,7 @@ function handeleAddElementFormSubmit(e) {
   closePopup(popupAddElement);
   addCarts(newCart);
   formAddElement.reset();
-  disableButton(formAddElement.querySelector('.popup__button-save'))
+  disableButton(formAddElement.querySelector('.popup__button-save'), 'popup__button-save_disabled')
 };
 
 function deleteElement(e) {
