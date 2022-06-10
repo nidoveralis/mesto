@@ -53,23 +53,21 @@ const dataCards = [
   },
 ];
 
-function openPupup(popup) {
+function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', (e)=>closeEsc(e, popup));
+  document.addEventListener('keydown', closeEsc);
   closeOverlay(popup);
 };
 
 function editProfile() {
-  openPupup(popupProfile);
+  openPopup(popupProfile);
   nameInput.value =  profileName.textContent;
   jobInput.value =  profileJob.textContent;
   validInut(popupProfile, 'popup__input_error');
 };
 
 function openAddElementForm() {
-  formAddElement.reset();
-  openPupup(popupAddElement);
-  validInut(popupAddElement, 'popup__input_error');
+  openPopup(popupAddElement);
 };
 
 function handleProfileFormSubmit(e) {
@@ -101,7 +99,7 @@ function createCard(item) {
   buttonLike.addEventListener('click', ()=> buttonLike.classList.toggle('element__like_active'));
   buttonDelete.addEventListener('click', deleteElement);
   elementImage.addEventListener('click', ()=> {
-    openPupup(popupPictire);
+    openPopup(popupPictire);
     popupImage.src = item.link;
     popupImage.alt = item.name;
     popupSubtitle.textContent = item.name;
@@ -151,9 +149,10 @@ function closeOverlay(item) {
   });
 };
 
-function closeEsc(e,arg) {
+function closeEsc(e) {
+  const popupOpen = document.querySelector('.popup_opened');
   if(e.key === 'Escape') {
-    closePopup(arg);
+    closePopup(popupOpen);
   };
 };
 
