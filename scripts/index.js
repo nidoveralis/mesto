@@ -1,3 +1,6 @@
+import { FormValidator } from "./validate.js";
+import { Card } from "./Card.js";
+
 const editButton = document.querySelector('.profile-info__edit');
 const popupProfile = document.querySelector('.popup-profile');
 const formProfile = document.querySelector('.form-profile');
@@ -11,11 +14,6 @@ const popupAddElement = document.querySelector('.popup-elements');
 const titleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
 const cardsContainer = document.querySelector('.elements');
-const templeteElement = document.querySelector('.add-element').content;
-const popupImage = document.querySelector('.popup__image');
-const popupSubtitle = document.querySelector('.popup__subtitle');
-const popupPictire = document.querySelector('.popup-picture');
-const popupButtonClose = document.querySelector('.popup__button-close');
 
 const objectValid = {
   formSelector: '.popup__form',
@@ -57,6 +55,7 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeEsc);
   closeOverlay(popup);
+
 };
 
 function editProfile() {
@@ -82,32 +81,9 @@ function renderCards(data) {
 };
 
 function addCarts(elem) {
-  prependCardElement(createCard(elem));
-};
-
-function like(button) {
-  button.classList.toggle('element__like_active');
-};
-
-function createCard(item) {
-  const newElement = templeteElement.cloneNode(true);
-  const elementTitle = newElement.querySelector('.element__title');
-  const elementImage = newElement.querySelector('.element__image');
-  const buttonLike = newElement.querySelector('.element__like');
-  const buttonDelete = newElement.querySelector('.element__delete');
-  popupButtonClose.addEventListener('click',closePopupByButton);
-  buttonLike.addEventListener('click', ()=> buttonLike.classList.toggle('element__like_active'));
-  buttonDelete.addEventListener('click', deleteElement);
-  elementImage.addEventListener('click', ()=> {
-    openPopup(popupPictire);
-    popupImage.src = item.link;
-    popupImage.alt = item.name;
-    popupSubtitle.textContent = item.name;
-  });
-  elementTitle.textContent = item.name;
-  elementImage.src = item.link;
-  elementImage.alt = item.name;
-  return newElement;
+  const card = new Card(elem, openPopup);
+  const cardElement = card.generationCard();
+  prependCardElement(cardElement);
 };
 
 function prependCardElement(card) {
@@ -120,13 +96,7 @@ function handeleAddElementFormSubmit(e) {
   closePopup(popupAddElement);
   addCarts(newCart);
   formAddElement.reset();
-  disableButton(formAddElement.querySelector('.popup__button-save'), 'popup__button-save_disabled')
-};
-
-function deleteElement(e) {
-  const elementButton = e.target;
-  const itemElement = elementButton.closest('.element');
-  itemElement.remove();
+  disableButton(formAddElement.querySelector('.popup__button-save'), 'popup__button-save_disabled');
 };
 
 document.querySelectorAll('.popup__button-close').forEach((button)=>button.addEventListener('click', closePopupByButton));
