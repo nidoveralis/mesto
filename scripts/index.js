@@ -1,3 +1,6 @@
+import { FormValidator } from "./validate.js";
+import { Card } from "./Card.js";
+
 const editButton = document.querySelector('.profile-info__edit');
 const popupProfile = document.querySelector('.popup-profile');
 const formProfile = document.querySelector('.form-profile');
@@ -10,8 +13,17 @@ const formAddElement = document.querySelector('.form-element');
 const popupAddElement = document.querySelector('.popup-elements');
 const titleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
-const elements = document.querySelector('.elements');
-const templeteElement = document.querySelector('.add-element').content;
+const cardsContainer = document.querySelector('.elements');
+
+const objectValid = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-save',
+  inactiveButtonClass: 'popup__button-save_disabled',
+  inputErrorClass: 'popup__input_error',
+  errorClass: 'form-error'
+}
+
 const dataCards = [
   {
     name: "Антверпен, Бельгия",
@@ -39,108 +51,84 @@ const dataCards = [
   },
 ];
 
-function editProfile() {
-  popupProfile.classList.add('popup_opened');
-  nameInput.value =  profileName.textContent;
-  jobInput.value =  profileJob.textContent;
-  closeEsc(popupProfile);
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeEsc);
+  closeOverlay(popup);
+
 };
 
-function formSubmitProfile(e) {
+function editProfile() {
+  openPopup(popupProfile);
+  nameInput.value =  profileName.textContent;
+  jobInput.value =  profileJob.textContent;
+  validInut(popupProfile, 'popup__input_error');
+};
+
+function openAddElementForm() {
+  openPopup(popupAddElement);
+};
+
+function handleProfileFormSubmit(e) {
   e.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closeItems(popupProfile);
-};
-
-function openNewElement() {
-  popupAddElement.classList.add('popup_opened');
-  closeEsc(popupAddElement);
-};
-
-function getAllPopup(){
-  document.querySelectorAll('.popup').forEach((item)=>{
-  item.addEventListener('click',closeOverlay)
-});
+  closePopup(popupProfile);
 };
 
 function renderCards(data) {
-  data.forEach(item =>showCart(item));
+  data.forEach(item =>addCarts(item));
 };
 
-function showCart(item) {
-  const newElement = templeteElement.cloneNode(true);
-  const elementTitle = newElement.querySelector('.element__title');
-  const elementImage = newElement.querySelector('.element__image');
-  const popupImage = newElement.querySelector('.popup__image');
-  const popupSubtitle = newElement.querySelector('.popup__subtitle');
-  const buttonLike = newElement.querySelector('.element__like');
-  let buttonDelete = newElement.querySelector('.element__delete');
-  let popupPictire = newElement.querySelector('.popup-picture');
-  let popupButtonClose = newElement.querySelector('.popup__button-close');
-  popupButtonClose.addEventListener('click',closePopup);
-  buttonLike.addEventListener('click', ()=> buttonLike.classList.toggle('element__like_active'));
-  buttonDelete.addEventListener('click', deleteElement);
-  elementImage.addEventListener('click', ()=>popupPictire.classList.add('popup_opened'));
-  elementTitle.textContent = item.name;
-  elementImage.src = item.link;
-  elementImage.alt = item.name;
-  popupImage.src = item.link;
-  popupImage.alt = item.name;
-  popupSubtitle.textContent = item.name;
-  showElements(newElement);
-  closeEsc(popupPictire);
-  getAllPopup();
+function addCarts(elem) {
+  const card = new Card(elem, openPopup);
+  const cardElement = card.generationCard();
+  prependCardElement(cardElement);
 };
 
-function showElements(card) {
-  elements.prepend(card);
+function prependCardElement(card) {
+  cardsContainer.prepend(card);
 };
 
-function addElement(e) {
+function handeleAddElementFormSubmit(e) {
   e.preventDefault();
-  let newCart = {name: titleInput.value, link: linkInput.value};
-  closeItems(popupAddElement);
-  showCart(newCart);
-  titleInput.value = '';
-  linkInput.value = '';
+  const newCart = {name: titleInput.value, link: linkInput.value};
+  closePopup(popupAddElement);
+  addCarts(newCart);
+  formAddElement.reset();
+  disableButton(formAddElement.querySelector('.popup__button-save'), 'popup__button-save_disabled');
 };
 
-function deleteElement(e) {
-  let elementButton = e.target;
-  let itemElement = elementButton.closest('.element');
-  //if(itemElement)
-  itemElement.remove();
+document.querySelectorAll('.popup__button-close').forEach((button)=>button.addEventListener('click', closePopupByButton));
+
+function closePopupByButton(e) {
+  const closeButton = e.target;
+  const itemElement = closeButton.closest('.popup');
+  closePopup(itemElement);
 };
 
-document.querySelectorAll('.popup__button-close').forEach((button)=>button.addEventListener('click', closePopup));
-
-function closeOverlay(e){
-  let popupOverlay = e.target;
-  closeItems(popupOverlay);
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeEsc);
 };
 
-function closeEsc(arg){
-  document.addEventListener('keydown', function (e) {
-    if(e.keyCode === 27) {
-      closeItems(arg);
-    };
-    });
+function closeOverlay(item) {
+  item.addEventListener('click',(e)=>{
+    const popupOverlay = e.target;
+    closePopup(popupOverlay);
+  });
 };
 
-function closePopup(e) {
-let closeButton = e.target;
-let itemElement = closeButton.closest('.popup');
-closeItems(itemElement);
+function closeEsc(e) {
+  const popupOpen = document.querySelector('.popup_opened');
+  if(e.key === 'Escape') {
+    closePopup(popupOpen);
+  };
 };
 
-function closeItems(arg) {
-arg.classList.remove('popup_opened');
-};
-
-getAllPopup()
 window.onload = renderCards(dataCards);
+enableValidation(objectValid);
 editButton.addEventListener('click', editProfile);
-formProfile.addEventListener('submit', formSubmitProfile);
-addButton.addEventListener('click', openNewElement);
-formAddElement.addEventListener('submit', addElement);
+formProfile.addEventListener('submit', handleProfileFormSubmit);
+addButton.addEventListener('click', openAddElementForm);
+formAddElement.addEventListener('submit', handeleAddElementFormSubmit);

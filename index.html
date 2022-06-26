@@ -38,11 +38,11 @@
           <h2 class="popup__title">Редактировать профиль</h2>
           <fieldset class="popup__field">
             <input id="name-input" type="text" class="popup__input popup__input_type_name" name="name" placeholder="Имя" minlength="2" maxlength="40" required>
-            <span class="name-input-error form__input-error"></span>
+            <span class="name-input-error input-error"></span>
           </fieldset> 
           <fieldset class="popup__field">
           <input  id="job-input" type="text" class="popup__input popup__input_type_job" name="job" placeholder="О себе" minlength="2" maxlength="200" required>
-          <span class="job-input-error form__input-error"></span> 
+          <span class="job-input-error input-error"></span> 
           </fieldset>
           <input type="submit" value="Сохранить" class="popup__button-save">
         </form>
@@ -56,16 +56,25 @@
           <h2 class="popup__title">Новое место</h2>
           <fieldset class="popup__field">
             <input id="name-element-input" type="text" class="popup__input popup__input_type_title" name="name-element" placeholder="Название" minlength="2" maxlength="30" required>
-            <span class="name-element-input-error form__input-error"></span> 
+            <span class="name-element-input-error input-error"></span> 
           </fieldset>
           <fieldset class="popup__field">
             <input id="link-element-input" type="url" class="popup__input popup__input_type_link" name="link-element" placeholder="Ссылка на картинку" required>
-            <span class="link-element-input-error form__input-error"></span> 
+            <span class="link-element-input-error input-error"></span> 
           </fieldset>
           <input type="submit" value="Создать" class="popup__button-save">
         </form>
       </div>
     </div>
+    
+    <div class="popup popup-picture">
+      <div class="popup__container">
+        <button class="popup__button-close button" type="button"></button>
+        <img class="popup__image">
+        <p class="popup__subtitle"></p>
+      </div>
+    </div>
+  </div>
 
     <template class="add-element">
       <div class="element">
@@ -73,19 +82,13 @@
         <img class="element__image">
         <h2 class="element__title"></h2>
         <button class="element__like button" type="button"></button>
-
-        <div class="popup popup-picture">
-          <div class="popup__container">
-            <button class="popup__button-close button" type="button"></button>
-            <img class="popup__image">
-            <p class="popup__subtitle"></p>
-          </div>
-        </div>
       </div>
     </template>
-  </div>
-  <script src="./scripts/validate.js"></script>
-  <script src="./scripts/index.js"></script>
+
+  <script type="module" src="./scripts/index.js"></script>
+  <script type="module" src="./scripts/validate.js"></script>
+  <script type="module" src="./scripts/Card.js"></script>
+  
 </body>
 
 </html>
