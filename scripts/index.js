@@ -1,4 +1,4 @@
-import { FormValidator } from "./validate.js";
+import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
 
 const editButton = document.querySelector('.profile-info__edit');
@@ -62,7 +62,8 @@ function editProfile() {
   openPopup(popupProfile);
   nameInput.value =  profileName.textContent;
   jobInput.value =  profileJob.textContent;
-  validInut(popupProfile, 'popup__input_error');
+  //validInut(popupProfile, 'popup__input_error');
+  new FormValidator(dataCards, popupProfile)
 };
 
 function openAddElementForm() {
@@ -127,7 +128,7 @@ function closeEsc(e) {
 };
 
 window.onload = renderCards(dataCards);
-enableValidation(objectValid);
+//enableValidation(objectValid);
 editButton.addEventListener('click', editProfile);
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 addButton.addEventListener('click', openAddElementForm);
