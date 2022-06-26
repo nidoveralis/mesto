@@ -4,10 +4,10 @@ const popupSubtitle = document.querySelector('.popup__subtitle');
 const popupPictire = document.querySelector('.popup-picture');
 
 export class Card {
-  constructor(data){
+  constructor(data, openPopup){
     this._name = data.name;
     this._link = data.link;
-    
+    this._openPopup = openPopup
   }
 
   _getTemplate(){
@@ -29,7 +29,7 @@ export class Card {
   _setEventListeners() {
     this._element.querySelector('.element__like').addEventListener('click', ()=> this._likeCard());
     this._element.querySelector('.element__delete').addEventListener('click', ()=> this._deleteCard());
-    this._element.querySelector('.element__image').addEventListener('click', ()=>this.increaseCard());
+    this._element.querySelector('.element__image').addEventListener('click', ()=>this._increaseCard());
   }
 
   _likeCard() {
@@ -40,8 +40,8 @@ export class Card {
     this._element.remove();
   }
 
-  increaseCard() {
-    this._qq = popupPictire.classList.add('popup_opened');
+  _increaseCard() {
+    this._openPopup(popupPictire)
     popupImage.src = this._link;
     popupImage.alt = this._name;
     popupSubtitle.textContent = this._name;

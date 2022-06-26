@@ -1,3 +1,4 @@
+import { FormValidator } from "./validate.js";
 import { Card } from "./Card.js";
 
 const editButton = document.querySelector('.profile-info__edit');
@@ -54,6 +55,7 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeEsc);
   closeOverlay(popup);
+
 };
 
 function editProfile() {
@@ -79,7 +81,7 @@ function renderCards(data) {
 };
 
 function addCarts(elem) {
-  const card = new Card(elem);
+  const card = new Card(elem, openPopup);
   const cardElement = card.generationCard();
   prependCardElement(cardElement);
 };
