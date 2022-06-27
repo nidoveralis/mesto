@@ -63,7 +63,8 @@ function editProfile() {
   nameInput.value =  profileName.textContent;
   jobInput.value =  profileJob.textContent;
   //validInut(popupProfile, 'popup__input_error');
-  new FormValidator(dataCards, popupProfile)
+  const form1 =new FormValidator(objectValid, popupProfile);
+  form1.enableValidation();
 };
 
 function openAddElementForm() {
