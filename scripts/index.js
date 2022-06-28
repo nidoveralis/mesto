@@ -55,24 +55,21 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeEsc);
   closeOverlay(popup);
-
+  const form =new FormValidator(objectValid, popup);
+  form.enableValidation();
 };
 
 function editProfile() {
   openPopup(popupProfile);
   nameInput.value =  profileName.textContent;
   jobInput.value =  profileJob.textContent;
-  //validInut(popupProfile, 'popup__input_error');
-  const form1 =new FormValidator(objectValid, popupProfile);
-  form1.enableValidation();
 };
 
 function openAddElementForm() {
   openPopup(popupAddElement);
 };
 
-function handleProfileFormSubmit(e) {
-  e.preventDefault();
+function handleProfileFormSubmit() {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closePopup(popupProfile);
@@ -92,13 +89,11 @@ function prependCardElement(card) {
   cardsContainer.prepend(card);
 };
 
-function handeleAddElementFormSubmit(e) {
-  e.preventDefault();
+function handeleAddElementFormSubmit() {
   const newCart = {name: titleInput.value, link: linkInput.value};
   closePopup(popupAddElement);
   addCarts(newCart);
   formAddElement.reset();
-  disableButton(formAddElement.querySelector('.popup__button-save'), 'popup__button-save_disabled');
 };
 
 document.querySelectorAll('.popup__button-close').forEach((button)=>button.addEventListener('click', closePopupByButton));
@@ -109,9 +104,16 @@ function closePopupByButton(e) {
   closePopup(itemElement);
 };
 
+function cleareInput(popup){
+  popup.querySelectorAll('.popup__input').forEach((input)=>{
+    input.value = '';
+  });
+};
+
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeEsc);
+  cleareInput(popup);
 };
 
 function closeOverlay(item) {
@@ -129,7 +131,6 @@ function closeEsc(e) {
 };
 
 window.onload = renderCards(dataCards);
-//enableValidation(objectValid);
 editButton.addEventListener('click', editProfile);
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 addButton.addEventListener('click', openAddElementForm);
