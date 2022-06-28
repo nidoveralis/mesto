@@ -41,7 +41,7 @@ export class Card {
   }
 
   _increaseCard() {
-    this._openPopup(popupPictire)
+    this._openPopup(popupPictire);
     popupImage.src = this._link;
     popupImage.alt = this._name;
     popupSubtitle.textContent = this._name;
