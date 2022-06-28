@@ -55,23 +55,23 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeEsc);
   closeOverlay(popup);
-}
+};
 
-function valideForm(popup) {
+function validationForm(popup) {
   const form =new FormValidator(objectValid, popup);
   form.enableValidation();
 };
 
 function editProfile() {
   openPopup(popupProfile);
-  valideForm(popupProfile);
+  validationForm(popupProfile);
   nameInput.value =  profileName.textContent;
   jobInput.value =  profileJob.textContent;
 };
 
 function openAddElementForm() {
   openPopup(popupAddElement);
-  valideForm(popupAddElement);
+  validationForm(popupAddElement);
 };
 
 function handleProfileFormSubmit() {
