@@ -8,15 +8,18 @@ export class FormValidator{
       this._form.addEventListener('submit', (e)=>{
         e.preventDefault();
       });
-      this._validateOpenForm();
       this._buttonElement = this._form.querySelector(this._data.submitButtonSelector);
-      this._setEventListeners();
-    };
-
-    _validateOpenForm(){
       this._inputList = Array.from(this._form.querySelectorAll(this._data.inputSelector));
       this._inputList.forEach((input)=>{
         this._hideError(input);
+      });
+      this._setEventListeners();
+    };
+
+    resetValidation() {
+      this._toggleButtonState();
+      this._inputList.forEach((inputElement) => {
+        this._hideError(inputElement);
       });
     };
     
@@ -27,17 +30,6 @@ export class FormValidator{
           this._isValid(inputElement);
           this._toggleButtonState();
         });
-      });
-    };
-
-    _validInut=(popupForm, popupError)=> {
-      const popupInputList = popupForm.querySelectorAll('.popup__input');
-      popupInputList.forEach((inputElement)=>{
-        if (!inputElement.validity.valid) {
-          showError(popupForm, inputElement, inputElement.validationMessage);
-        } else {
-          hideError(popupForm, inputElement, popupError);
-        };
       });
     };
 
@@ -76,17 +68,6 @@ export class FormValidator{
         this._buttonElement.removeAttribute('disabled');
       }
     };
-
-    //_validInut() {
-      //const popupInputList = popupForm.querySelectorAll('.popup__input');
-      //popupInputList.forEach((inputElement)=>{
-        //if (!inputElement.validity.valid) {
-          //showError();
-        //} else {
-          //hideError();
-        //};
-      //});
-    //};
     
     _disableButton(){
       this._buttonElement.classList.add(this._data.inactiveButtonClass);

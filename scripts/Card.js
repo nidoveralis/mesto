@@ -1,49 +1,49 @@
-const templeteElement = document.querySelector('.add-element').content;
-const popupImage = document.querySelector('.popup__image');
-const popupSubtitle = document.querySelector('.popup__subtitle');
-const popupPictire = document.querySelector('.popup-picture');
-
 export class Card {
-  constructor(data, openPopup){
+  constructor(data, openPopup, templeteElement, handleCardClick){
     this._name = data.name;
     this._link = data.link;
-    this._openPopup = openPopup
-  }
+    this._openPopup = openPopup;
+    this._templeteElement = templeteElement;
+    this._handleCardClick = handleCardClick;
+  };
 
   _getTemplate(){
-    const newCard = templeteElement
+    const newCard = this._templeteElement
+    .content
     .querySelector('.element')
     .cloneNode(true);
     return newCard;
-  }
+  };
 
   generationCard() {
     this._element = this._getTemplate();
     this._element.querySelector('.element__title').textContent = this._name;
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__image').alt = this._name;
+    this._cardImage = this._element.querySelector('.element__image');
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
     this._setEventListeners();
     return this._element;
-  }
+  };
 
   _setEventListeners() {
-    this._element.querySelector('.element__like').addEventListener('click', ()=> this._likeCard());
+    this._cardLike = this._element.querySelector('.element__like');
+    this._cardLike.addEventListener('click', ()=> this._likeCard());
     this._element.querySelector('.element__delete').addEventListener('click', ()=> this._deleteCard());
-    this._element.querySelector('.element__image').addEventListener('click', ()=>this._increaseCard());
-  }
+    this._cardImage.addEventListener('click', ()=>this._handleCardClick(this._name, this._link));
+  };
 
   _likeCard() {
-    this._element.querySelector('.element__like').classList.toggle('element__like_active');
-  }
+    this._cardLike.classList.toggle('element__like_active');
+  };
 
   _deleteCard() {
     this._element.remove();
-  }
+  };
 
   _increaseCard() {
     this._openPopup(popupPictire);
     popupImage.src = this._link;
     popupImage.alt = this._name;
     popupSubtitle.textContent = this._name;
-  }
-}
+  };
+};

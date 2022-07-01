@@ -14,6 +14,11 @@ const popupAddElement = document.querySelector('.popup-elements');
 const titleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
 const cardsContainer = document.querySelector('.elements');
+const templeteElement = document.querySelector('.add-element');
+const popups = document.querySelectorAll('.popup');
+const popupImage = document.querySelector('.popup__image');
+const popupSubtitle = document.querySelector('.popup__subtitle');
+const popupPictire = document.querySelector('.popup-picture');
 
 const objectValid = {
   formSelector: '.popup__form',
@@ -51,27 +56,44 @@ const dataCards = [
   },
 ];
 
+const formValidators = {}
+
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config));
+  formList.forEach((formElement) => {
+    const formName = formElement.getAttribute('name');
+    const validator = new FormValidator(objectValid, formElement);
+    formValidators[formName] = validator;
+  validator.enableValidation();
+  });
+};
+
+enableValidation('.popup__form');
+
+
+function handleCardClick(name, link) {
+  popupImage.src = link;
+  popupImage.alt = name;
+  popupSubtitle.textContent = name;
+  openPopup(popupPictire);
+};
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeEsc);
-  closeOverlay(popup);
-};
-
-function validationForm(popup) {
-  const form =new FormValidator(objectValid, popup);
-  form.enableValidation();
 };
 
 function editProfile() {
   openPopup(popupProfile);
-  validationForm(popupProfile);
   nameInput.value =  profileName.textContent;
   jobInput.value =  profileJob.textContent;
+  formValidators['personal-info'].resetValidation();
 };
 
 function openAddElementForm() {
   openPopup(popupAddElement);
-  validationForm(popupAddElement);
+  formAddElement.reset();
+  formValidators['new-element'].resetValidation();
 };
 
 function handleProfileFormSubmit() {
@@ -84,9 +106,14 @@ function renderCards(data) {
   data.forEach(item =>addCarts(item));
 };
 
-function addCarts(elem) {
-  const card = new Card(elem, openPopup);
+function createCard(elem){
+  const card = new Card(elem, openPopup, templeteElement, handleCardClick);
   const cardElement = card.generationCard();
+  return cardElement;
+};
+
+function addCarts(elem) {
+  const cardElement = createCard(elem)
   prependCardElement(cardElement);
 };
 
@@ -98,44 +125,32 @@ function handeleAddElementFormSubmit() {
   const newCart = {name: titleInput.value, link: linkInput.value};
   closePopup(popupAddElement);
   addCarts(newCart);
-  formAddElement.reset();
 };
 
-document.querySelectorAll('.popup__button-close').forEach((button)=>button.addEventListener('click', closePopupByButton));
-
-function closePopupByButton(e) {
-  const closeButton = e.target;
-  const itemElement = closeButton.closest('.popup');
-  closePopup(itemElement);
-};
-
-function cleareInput(popup){
-  popup.querySelectorAll('.popup__input').forEach((input)=>{
-    input.value = '';
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (e) => {
+      if (e.target.classList.contains('popup_opened')) {
+          closePopup(popup);
+      }
+      if (e.target.classList.contains('popup__button-close')) {
+        closePopup(popup);
+      }
   });
-};
+});
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeEsc);
-  cleareInput(popup);
-};
-
-function closeOverlay(item) {
-  item.addEventListener('click',(e)=>{
-    const popupOverlay = e.target;
-    closePopup(popupOverlay);
-  });
 };
 
 function closeEsc(e) {
-  const popupOpen = document.querySelector('.popup_opened');
   if(e.key === 'Escape') {
+    const popupOpen = document.querySelector('.popup_opened');
     closePopup(popupOpen);
   };
 };
 
-window.onload = renderCards(dataCards);
+renderCards(dataCards);
 editButton.addEventListener('click', editProfile);
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 addButton.addEventListener('click', openAddElementForm);
