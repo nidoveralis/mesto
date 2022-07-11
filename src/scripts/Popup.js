@@ -5,24 +5,29 @@ export class Popup{
 
   open(){
     this._selector.classList.add('popup_opened');
+    this._handleEscClose();
   };
 
   close(){
     this._selector.classList.remove('popup_opened');
   };
 
-  setEventListeners() {//добавляет слушатель клика иконке закрытия попапа. Модальное окно также закрывается при клике на затемнённую область вокруг формы
-    //if (e.target.classList.contains('popup__button-close')){
-      //this.close();
-   // }
-   console.log('lll')
+  _handleEscClose() {
+    document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') {
+      this.close()
+      };
+    });
   };
-
-  _handleEscClose(e) {
-    //if(e.key === 'Escape') {
-      //const popupOpen = document.querySelector('.popup_opened');
-      //closePopup(popupOpen);
-    //};
+  
+  setEventListeners() {
+   this._selector.addEventListener('mousedown', (e) => {
+    if (e.target.classList.contains('popup__button-close')){
+      this.close()
+    }if (e.target.classList.contains('popup_opened')) {
+      this.close()
+    }
+   });
   };
   
 };

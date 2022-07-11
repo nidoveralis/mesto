@@ -58,7 +58,7 @@ const dataCards = [
 ];
 
 const formValidators = {};
-const section = {}
+const sectionPopup = {}
 
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config));
@@ -81,10 +81,9 @@ function handleCardClick(name, link) {
 };
 
 function openPopup(popup) {
-  const popOp = new Popup (popup);
-  section[popup]=popOp
-  return section[popup].open()
-  //document.addEventListener('keydown', closeEsc);
+  sectionPopup[popup]= new Popup (popup);
+  sectionPopup[popup].open();
+  sectionPopup[popup].setEventListeners();
 };
 
 function editProfile() {
@@ -131,31 +130,9 @@ function handeleAddElementFormSubmit() {
   addCarts(newCart);
 };
 
-popups.forEach((popup) => {
-  console.log(section[popup])
-  //return section[popup].setEventListeners()
-  popup.addEventListener('mousedown', (e) => {
-      if (e.target.classList.contains('popup_opened')) {
-          closePopup(popup);
-      }
-      
-      //if (e.target.classList.contains('popup__button-close')) {
-       // closePopup(popup);
-      //}
-  });
-});
-
 function closePopup(popup) {
-  return section[popup].close()
-  //document.removeEventListener('keydown', closeEsc);
+  return sectionPopup[popup].close()
 };
-
-//function closeEsc(e) {
-  //if(e.key === 'Escape') {
-    //const popupOpen = document.querySelector('.popup_opened');
-    //closePopup(popupOpen);
-  //};
-//};
 
 renderCards(dataCards);
 editButton.addEventListener('click', editProfile);
