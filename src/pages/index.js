@@ -1,5 +1,6 @@
-import { FormValidator } from "./FormValidator.js";
-import { Card } from "./Card.js";
+import { FormValidator } from "../scripts/FormValidator.js";
+import { Card } from "../scripts/Card.js";
+import { Popup } from "../scripts/Popup.js";
 
 const editButton = document.querySelector('.profile-info__edit');
 const popupProfile = document.querySelector('.popup-profile');
@@ -56,7 +57,8 @@ const dataCards = [
   },
 ];
 
-const formValidators = {}
+const formValidators = {};
+const section = {}
 
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config));
@@ -79,8 +81,10 @@ function handleCardClick(name, link) {
 };
 
 function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closeEsc);
+  const popOp = new Popup (popup);
+  section[popup]=popOp
+  return section[popup].open()
+  //document.addEventListener('keydown', closeEsc);
 };
 
 function editProfile() {
@@ -128,27 +132,30 @@ function handeleAddElementFormSubmit() {
 };
 
 popups.forEach((popup) => {
+  console.log(section[popup])
+  //return section[popup].setEventListeners()
   popup.addEventListener('mousedown', (e) => {
       if (e.target.classList.contains('popup_opened')) {
           closePopup(popup);
       }
-      if (e.target.classList.contains('popup__button-close')) {
-        closePopup(popup);
-      }
+      
+      //if (e.target.classList.contains('popup__button-close')) {
+       // closePopup(popup);
+      //}
   });
 });
 
 function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeEsc);
+  return section[popup].close()
+  //document.removeEventListener('keydown', closeEsc);
 };
 
-function closeEsc(e) {
-  if(e.key === 'Escape') {
-    const popupOpen = document.querySelector('.popup_opened');
-    closePopup(popupOpen);
-  };
-};
+//function closeEsc(e) {
+  //if(e.key === 'Escape') {
+    //const popupOpen = document.querySelector('.popup_opened');
+    //closePopup(popupOpen);
+  //};
+//};
 
 renderCards(dataCards);
 editButton.addEventListener('click', editProfile);
