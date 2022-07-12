@@ -15,7 +15,7 @@ export class Popup{
   _handleEscClose() {
     document.addEventListener('keydown', (e)=>{
     if(e.key === 'Escape') {
-      this.close()
+      this.close();
       };
     });
   };
@@ -23,9 +23,9 @@ export class Popup{
   setEventListeners() {
    this._selector.addEventListener('mousedown', (e) => {
     if (e.target.classList.contains('popup__button-close')){
-      this.close()
+      this.close();
     }if (e.target.classList.contains('popup_opened')) {
-      this.close()
+      this.close();
     }
    });
   };

@@ -1,20 +1,31 @@
-import { Popup } from "./Popup"
+import { Popup } from "./Popup.js"
 
 export class PopupWithForm extends Popup{
   constructor(selector, handelSubmit) {
-    this._selector = selector;
+    super(selector);
     this._handleSubmit = handelSubmit;
   };
 
-  _getInputValues(){///собирает данные всех полей формы.
-
+  _getInputValues(){
+    const inputList = this._selector.querySelectorAll('.popup__input');
+    const newCard = [];
+    inputList.forEach((input)=>{
+      newCard[input.name] = input.value;
+    });
+    return newCard
   };
 
-  setEventListeners() {//должен не только добавлять обработчик клика иконке закрытия, но и добавлять обработчик сабмита формы.
-
+  setEventListeners() {
+    super.setEventListeners();
+    this._form = this._selector.querySelector('.popup__form');
+    this._form.addEventListener('submit',()=>{
+      this._card = this._getInputValues();
+      this.close();
+    })
   };
 
-  close() {//Перезаписывает родительский метод close, так как при закрытии попапа форма должна ещё и сбрасываться.
-
+  close() {
+    super.close();
+    this._form.reset();
   };
 };

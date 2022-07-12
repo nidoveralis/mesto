@@ -1,12 +1,11 @@
 import { Popup } from "./Popup"
 
 export class PopupWithImage extends Popup{
-  constructor() {
-     
+  constructor(selection) {
+     super(selection)
   };
 
-  open(){
-    this._selector.classList.add('popup_opened');
-    //this._handleEscClose();
+  open() {
+    super.open();
   };
 }

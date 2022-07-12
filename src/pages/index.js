@@ -1,6 +1,7 @@
 import { FormValidator } from "../scripts/FormValidator.js";
 import { Card } from "../scripts/Card.js";
 import { Popup } from "../scripts/Popup.js";
+import { PopupWithForm } from "../scripts/PopupWithForm.js";
 
 const editButton = document.querySelector('.profile-info__edit');
 const popupProfile = document.querySelector('.popup-profile');
@@ -12,11 +13,11 @@ const profileJob = document.querySelector('.profile-info__subtitle');
 const addButton = document.querySelector('.profile__add-button');
 const formAddElement = document.querySelector('.form-element');
 const popupAddElement = document.querySelector('.popup-elements');
-const titleInput = document.querySelector('.popup__input_type_title');
-const linkInput = document.querySelector('.popup__input_type_link');
+//const titleInput = document.querySelector('.popup__input_type_title');
+//const linkInput = document.querySelector('.popup__input_type_link');
 const cardsContainer = document.querySelector('.elements');
 const templeteElement = document.querySelector('.add-element');
-const popups = document.querySelectorAll('.popup');
+//const popups = document.querySelectorAll('.popup');
 const popupImage = document.querySelector('.popup__image');
 const popupSubtitle = document.querySelector('.popup__subtitle');
 const popupPictire = document.querySelector('.popup-picture');
@@ -86,6 +87,12 @@ function openPopup(popup) {
   sectionPopup[popup].setEventListeners();
 };
 
+function openForm(form) {
+  const popupForm = new PopupWithForm(form, addCarts);
+  popupForm.open();
+  popupForm.setEventListeners();
+}
+
 function editProfile() {
   openPopup(popupProfile);
   nameInput.value =  profileName.textContent;
@@ -94,8 +101,8 @@ function editProfile() {
 };
 
 function openAddElementForm() {
-  openPopup(popupAddElement);
-  formAddElement.reset();
+  //openPopup(popupAddElement);
+  openForm(popupAddElement);
   formValidators['new-element'].resetValidation();
 };
 
@@ -125,9 +132,8 @@ function prependCardElement(card) {
 };
 
 function handeleAddElementFormSubmit() {
-  const newCart = {name: titleInput.value, link: linkInput.value};
-  closePopup(popupAddElement);
-  addCarts(newCart);
+  //closePopup(popupAddElement);
+  //addCarts(newCard);
 };
 
 function closePopup(popup) {
@@ -138,4 +144,4 @@ renderCards(dataCards);
 editButton.addEventListener('click', editProfile);
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 addButton.addEventListener('click', openAddElementForm);
-formAddElement.addEventListener('submit', handeleAddElementFormSubmit);
+//formAddElement.addEventListener('submit', handeleAddElementFormSubmit);
