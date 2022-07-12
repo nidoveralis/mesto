@@ -1,8 +1,7 @@
 export class Card {
-  constructor(data, openPopup, templeteElement, handleCardClick){
-    this._name = data.name;
+  constructor(data, templeteElement, handleCardClick){
+    this._title = data.title;
     this._link = data.link;
-    this._openPopup = openPopup;
     this._templeteElement = templeteElement;
     this._handleCardClick = handleCardClick;
   };
@@ -17,11 +16,11 @@ export class Card {
 
   generationCard() {
     this._element = this._getTemplate();
-    this._element.querySelector('.element__title').textContent = this._name;
+    this._element.querySelector('.element__title').textContent = this._title;
     this._cardLike = this._element.querySelector('.element__like');
     this._cardImage = this._element.querySelector('.element__image');
     this._cardImage.src = this._link;
-    this._cardImage.alt = this._name;
+    this._cardImage.alt = this._title;
     this._setEventListeners();
     return this._element;
   };
@@ -29,7 +28,7 @@ export class Card {
   _setEventListeners() {
     this._cardLike.addEventListener('click', ()=> this._likeCard());
     this._element.querySelector('.element__delete').addEventListener('click', ()=> this._deleteCard());
-    this._cardImage.addEventListener('click', ()=>this._handleCardClick(this._name, this._link));
+    this._cardImage.addEventListener('click', ()=>this._handleCardClick({name:this._title, link:this._link}));
   };
 
   _likeCard() {

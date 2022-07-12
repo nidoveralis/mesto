@@ -2,6 +2,8 @@ import { FormValidator } from "../scripts/FormValidator.js";
 import { Card } from "../scripts/Card.js";
 import { Popup } from "../scripts/Popup.js";
 import { PopupWithForm } from "../scripts/PopupWithForm.js";
+import { UserInfo } from "../scripts/UserInfo.js";
+import { PopupWithImage } from "../scripts/PopupWithImage.js";
 
 const editButton = document.querySelector('.profile-info__edit');
 const popupProfile = document.querySelector('.popup-profile');
@@ -33,27 +35,27 @@ const objectValid = {
 
 const dataCards = [
   {
-    name: "Антверпен, Бельгия",
+    title: "Антверпен, Бельгия",
     link: "./images/Belgium.jpg"
   },
   {
-    name: "Кембридж, США",
+    title: "Кембридж, США",
     link: "./images/Cambridge.jpg"
   },
   {
-    name: "Дубай, ОАЭ",
+    title: "Дубай, ОАЭ",
     link: "./images/Dubai_United_Arab_Emirates.jpg"
   },
   {
-    name: "Париж, Франция",
+    title: "Париж, Франция",
     link: "./images/France.jpg"
   },
   {
-    name: "Арль, Франция",
+    title: "Арль, Франция",
     link: "./images/arl.jpg"
   },
   {
-    name: "Ротердам, Нидерланды",
+    title: "Ротердам, Нидерланды",
     link: "./images/Rotterdam.jpg"
   },
 ];
@@ -74,42 +76,34 @@ const enableValidation = (config) => {
 enableValidation('.popup__form');
 
 
-function handleCardClick(name, link) {
-  popupImage.src = link;
-  popupImage.alt = name;
-  popupSubtitle.textContent = name;
-  openPopup(popupPictire);
+function handleCardClick(data) {
+  const picture = new PopupWithImage(popupPictire, data);
+  picture.open();
+  picture.setEventListeners();
 };
 
-function openPopup(popup) {
-  sectionPopup[popup]= new Popup (popup);
-  sectionPopup[popup].open();
-  sectionPopup[popup].setEventListeners();
-};
-
-function openForm(form) {
-  const popupForm = new PopupWithForm(form, addCarts);
+function openForm(form, func) {
+  const popupForm = new PopupWithForm(form, func);
   popupForm.open();
   popupForm.setEventListeners();
-}
+};
 
-function editProfile() {
-  openPopup(popupProfile);
-  nameInput.value =  profileName.textContent;
-  jobInput.value =  profileJob.textContent;
+function editProfile(data) {
+  openForm(popupProfile, handleProfileFormSubmit);
+  const user = new UserInfo(data, {name: profileName, job:profileJob});
+  //nameInput.value =  profileName.textContent;
+  //jobInput.value =  profileJob.textContent;
   formValidators['personal-info'].resetValidation();
 };
 
 function openAddElementForm() {
-  //openPopup(popupAddElement);
-  openForm(popupAddElement);
+  openForm(popupAddElement, addCarts);
   formValidators['new-element'].resetValidation();
 };
 
 function handleProfileFormSubmit() {
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-  closePopup(popupProfile);
+  //const user = new UserInfo(data, {name: profileName, job:profileJob});
+  user.setUserInfo()
 };
 
 function renderCards(data) {
@@ -117,7 +111,7 @@ function renderCards(data) {
 };
 
 function createCard(elem){
-  const card = new Card(elem, openPopup, templeteElement, handleCardClick);
+  const card = new Card(elem, templeteElement, handleCardClick);
   const cardElement = card.generationCard();
   return cardElement;
 };
@@ -131,17 +125,10 @@ function prependCardElement(card) {
   cardsContainer.prepend(card);
 };
 
-function handeleAddElementFormSubmit() {
-  //closePopup(popupAddElement);
-  //addCarts(newCard);
-};
-
 function closePopup(popup) {
   return sectionPopup[popup].close()
 };
 
 renderCards(dataCards);
 editButton.addEventListener('click', editProfile);
-formProfile.addEventListener('submit', handleProfileFormSubmit);
 addButton.addEventListener('click', openAddElementForm);
-//formAddElement.addEventListener('submit', handeleAddElementFormSubmit);
