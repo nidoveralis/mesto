@@ -15,6 +15,7 @@ export class Card {
   };
 
   generationCard() {
+    console.log(this._templeteElement)
     this._element = this._getTemplate();
     this._element.querySelector('.element__title').textContent = this._title;
     this._cardLike = this._element.querySelector('.element__like');

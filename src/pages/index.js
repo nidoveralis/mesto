@@ -4,24 +4,17 @@ import { Popup } from "../scripts/Popup.js";
 import { PopupWithForm } from "../scripts/PopupWithForm.js";
 import { UserInfo } from "../scripts/UserInfo.js";
 import { PopupWithImage } from "../scripts/PopupWithImage.js";
+import { Section } from "../scripts/Section.js";
 
 const editButton = document.querySelector('.profile-info__edit');
 const popupProfile = document.querySelector('.popup-profile');
-const formProfile = document.querySelector('.form-profile');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_job');
 const profileName = document.querySelector('.profile-info__title');
 const profileJob = document.querySelector('.profile-info__subtitle');
 const addButton = document.querySelector('.profile__add-button');
-const formAddElement = document.querySelector('.form-element');
 const popupAddElement = document.querySelector('.popup-elements');
-//const titleInput = document.querySelector('.popup__input_type_title');
-//const linkInput = document.querySelector('.popup__input_type_link');
-const cardsContainer = document.querySelector('.elements');
 const templeteElement = document.querySelector('.add-element');
-//const popups = document.querySelectorAll('.popup');
-const popupImage = document.querySelector('.popup__image');
-const popupSubtitle = document.querySelector('.popup__subtitle');
 const popupPictire = document.querySelector('.popup-picture');
 
 const objectValid = {
@@ -93,43 +86,59 @@ function editProfile() {
   ///что-то не понятное, но рабочее
   nameInput.value =  user.getUserInfo().name;//
   jobInput.value =  user.getUserInfo().job;//
-  handleProfileFormSubmit(user)
+  //handleProfileFormSubmit(user);
   formValidators['personal-info'].resetValidation();
 };
 
-function handleProfileFormSubmit(data, clas) {
-  console.log(data)
-  console.log(clas)
+function handleProfileFormSubmit(data) {
+  console.log('инпуты', data)
 };
 
+function a(selector, vall) {
+  selector.textContent = vall;
+}
+
 function openAddElementForm() {
-  openForm(popupAddElement, addCarts);
+  openForm(popupAddElement, newC);
   formValidators['new-element'].resetValidation();
 };
 
-function renderCards(data) {
-  data.forEach(item =>addCarts(item));
-};
+//function renderCards(data) {
+  //data.forEach(item =>newC(item));
+//};
 
 function createCard(elem){
   const card = new Card(elem, templeteElement, handleCardClick);
   const cardElement = card.generationCard();
+  console.log(cardElement)
   return cardElement;
 };
 
-function addCarts(elem) {
-  const cardElement = createCard(elem)
-  prependCardElement(cardElement);
+function newC(cards) {
+  const cardList = new Section({items: cards, renderer: (card)=>{
+    const cardi = new Card(card, templeteElement, handleCardClick);
+    const cardElement = cardi.generationCard();
+    console.log(cardElement)
+    //return cardElement;
+    }}, '.elements')
+  cardList.addItem();
 };
 
-function prependCardElement(card) {
-  cardsContainer.prepend(card);
-};
+newC(dataCards)
 
-function closePopup(popup) {
-  return sectionPopup[popup].close()
-};
+//function addCarts(elem) {
+  //const cardElement = createCard(elem);
+  //prependCardElement(cardElement);
+//};
 
-renderCards(dataCards);
+//function prependCardElement(card) {
+  //cardsContainer.prepend(card);
+//};
+
+//function closePopup(popup) {
+  //return sectionPopup[popup].close()
+//};
+
+//renderCards(dataCards);
 editButton.addEventListener('click', editProfile);
 addButton.addEventListener('click', openAddElementForm);
