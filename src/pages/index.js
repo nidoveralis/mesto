@@ -75,7 +75,6 @@ const enableValidation = (config) => {
 
 enableValidation('.popup__form');
 
-
 function handleCardClick(data) {
   const picture = new PopupWithImage(popupPictire, data);
   picture.open();
@@ -88,22 +87,24 @@ function openForm(form, func) {
   popupForm.setEventListeners();
 };
 
-function editProfile(data) {
+function editProfile() {
   openForm(popupProfile, handleProfileFormSubmit);
-  const user = new UserInfo(data, {name: profileName, job:profileJob});
-  //nameInput.value =  profileName.textContent;
-  //jobInput.value =  profileJob.textContent;
+  const user = new UserInfo({name: profileName, job:profileJob});
+  ///что-то не понятное, но рабочее
+  nameInput.value =  user.getUserInfo().name;//
+  jobInput.value =  user.getUserInfo().job;//
+  handleProfileFormSubmit(user)
   formValidators['personal-info'].resetValidation();
+};
+
+function handleProfileFormSubmit(data, clas) {
+  console.log(data)
+  console.log(clas)
 };
 
 function openAddElementForm() {
   openForm(popupAddElement, addCarts);
   formValidators['new-element'].resetValidation();
-};
-
-function handleProfileFormSubmit() {
-  //const user = new UserInfo(data, {name: profileName, job:profileJob});
-  user.setUserInfo()
 };
 
 function renderCards(data) {
