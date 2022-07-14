@@ -8,7 +8,7 @@ export class PopupWithForm extends Popup{
 
   _getInputValues(){
     const inputList = this._selector.querySelectorAll('.popup__input');
-    const newCard = [];
+    const newCard = {};
     inputList.forEach((input)=>{
       newCard[input.name] = input.value;
     });

@@ -1,21 +1,16 @@
-import { FormValidator } from "../scripts/FormValidator.js";
-import { Card } from "../scripts/Card.js";
-import { Popup } from "../scripts/Popup.js";
-import { PopupWithForm } from "../scripts/PopupWithForm.js";
-import { UserInfo } from "../scripts/UserInfo.js";
-import { PopupWithImage } from "../scripts/PopupWithImage.js";
-import { Section } from "../scripts/Section.js";
+import { FormValidator } from "../components/FormValidator.js";
+import { Card } from "../components/Card.js";
+import { Popup } from "../components/Popup.js";
+import { PopupWithForm } from "../components/PopupWithForm.js";
+import { UserInfo } from "../components/UserInfo.js";
+import { PopupWithImage } from "../components/PopupWithImage.js";
+import { Section } from "../components/Section.js";
 
 const editButton = document.querySelector('.profile-info__edit');
-const popupProfile = document.querySelector('.popup-profile');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_job');
-const profileName = document.querySelector('.profile-info__title');
-const profileJob = document.querySelector('.profile-info__subtitle');
 const addButton = document.querySelector('.profile__add-button');
-const popupAddElement = document.querySelector('.popup-elements');
 const templeteElement = document.querySelector('.add-element');
-const popupPictire = document.querySelector('.popup-picture');
 
 const objectValid = {
   formSelector: '.popup__form',
@@ -54,7 +49,6 @@ const dataCards = [
 ];
 
 const formValidators = {};
-const sectionPopup = {}
 
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config));
@@ -69,7 +63,7 @@ const enableValidation = (config) => {
 enableValidation('.popup__form');
 
 function handleCardClick(data) {
-  const picture = new PopupWithImage(popupPictire, data);
+  const picture = new PopupWithImage('.popup-picture', data);
   picture.open();
   picture.setEventListeners();
 };
@@ -81,8 +75,8 @@ function openForm(form, func) {
 };
 
 function editProfile() {
-  openForm(popupProfile, handleProfileFormSubmit);
-  const user = new UserInfo({name: profileName, job:profileJob});
+  openForm('.popup-profile', handleProfileFormSubmit);
+  const user = new UserInfo({name: '.profile-info__title', job:'.profile-info__subtitle'});
   ///что-то не понятное, но рабочее
   nameInput.value =  user.getUserInfo().name;//
   jobInput.value =  user.getUserInfo().job;//
@@ -94,18 +88,19 @@ function handleProfileFormSubmit(data) {
   console.log('инпуты', data)
 };
 
-function a(selector, vall) {
-  selector.textContent = vall;
-}
-
 function openAddElementForm() {
-  openForm(popupAddElement, newC);
+  openForm('.popup-elements', addNewCard);
   formValidators['new-element'].resetValidation();
 };
 
-//function renderCards(data) {
-  //data.forEach(item =>newC(item));
-//};
+function addNewCard(item) {
+  const newCard = new Section({data: item, renderer:(item)=>{
+    const card = new Card(item, templeteElement, handleCardClick);
+    const cardElement = card.generationCard();
+    newCard.addItem(cardElement)
+  }}, '.elements');
+  newCard.renderer();
+};
 
 function createCard(elem){
   const card = new Card(elem, templeteElement, handleCardClick);
@@ -115,13 +110,13 @@ function createCard(elem){
 };
 
 function newC(cards) {
-  const cardList = new Section({items: cards, renderer: (card)=>{
-    const cardi = new Card(card, templeteElement, handleCardClick);
-    const cardElement = cardi.generationCard();
-    console.log(cardElement)
-    //return cardElement;
-    }}, '.elements')
-  cardList.addItem();
+  const cardList = new Section({data: cards, renderer: (cardItem)=>{
+    const card = new Card(cardItem, templeteElement, handleCardClick);
+    const cardElement = card.generationCard();
+    cardList.addItem(cardElement);
+    }}, '.elements');
+    
+  cardList.renderItems();
 };
 
 newC(dataCards)
