@@ -68,72 +68,57 @@ function handleCardClick(data) {
   picture.setEventListeners();
 };
 
-function openForm(form, func) {
-  const popupForm = new PopupWithForm(form, func);
-  popupForm.open();
-  popupForm.setEventListeners();
+const user = new UserInfo({name: '.profile-info__title', job:'.profile-info__subtitle'});
+
+const formUser = new PopupWithForm({
+  selector: '.popup-profile',
+  handelSubmit: (formData) => {
+    user.setUserInfo(formData);
+  }
+});
+
+const formCard = new PopupWithForm({
+  selector: '.popup-elements',
+  handelSubmit: (formData) => {
+    const newCard = new Section({data: formData, renderer:(item)=>{
+      const card = new Card(item, templeteElement, handleCardClick);
+      const cardElement = card.generationCard();
+      newCard.addItem(cardElement);
+    }}, '.elements');
+    newCard.renderer();
+  }
+});
+
+function openForm() {
+  formUser.open();
+  formUser.showUserInfo(user.getUserInfo())
 };
 
 function editProfile() {
   openForm('.popup-profile', handleProfileFormSubmit);
-  const user = new UserInfo({name: '.profile-info__title', job:'.profile-info__subtitle'});
-  ///что-то не понятное, но рабочее
-  nameInput.value =  user.getUserInfo().name;//
-  jobInput.value =  user.getUserInfo().job;//
-  //handleProfileFormSubmit(user);
   formValidators['personal-info'].resetValidation();
 };
 
 function handleProfileFormSubmit(data) {
-  console.log('инпуты', data)
+  user.setUserInfo(data);
 };
 
 function openAddElementForm() {
-  openForm('.popup-elements', addNewCard);
+  formCard.open();
   formValidators['new-element'].resetValidation();
 };
 
-function addNewCard(item) {
-  const newCard = new Section({data: item, renderer:(item)=>{
-    const card = new Card(item, templeteElement, handleCardClick);
-    const cardElement = card.generationCard();
-    newCard.addItem(cardElement)
-  }}, '.elements');
-  newCard.renderer();
-};
-
-function createCard(elem){
-  const card = new Card(elem, templeteElement, handleCardClick);
-  const cardElement = card.generationCard();
-  console.log(cardElement)
-  return cardElement;
-};
-
-function newC(cards) {
-  const cardList = new Section({data: cards, renderer: (cardItem)=>{
+function addCardsList(cards) {
+  const cardsList = new Section({data: cards, renderer: (cardItem)=>{
     const card = new Card(cardItem, templeteElement, handleCardClick);
     const cardElement = card.generationCard();
-    cardList.addItem(cardElement);
+    cardsList.addItem(cardElement);
     }}, '.elements');
     
-  cardList.renderItems();
+  cardsList.renderItems();
 };
 
-newC(dataCards)
+addCardsList(dataCards);
 
-//function addCarts(elem) {
-  //const cardElement = createCard(elem);
-  //prependCardElement(cardElement);
-//};
-
-//function prependCardElement(card) {
-  //cardsContainer.prepend(card);
-//};
-
-//function closePopup(popup) {
-  //return sectionPopup[popup].close()
-//};
-
-//renderCards(dataCards);
 editButton.addEventListener('click', editProfile);
 addButton.addEventListener('click', openAddElementForm);

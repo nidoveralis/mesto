@@ -3,12 +3,13 @@ export class Popup{
     this._selector = document.querySelector(selector);
   };
 
-  open(){
+  open() {
     this._selector.classList.add('popup_opened');
     this._handleEscClose();
+    this.setEventListeners();
   };
 
-  close(){
+  close() {
     this._selector.classList.remove('popup_opened');
   };
 
@@ -26,7 +27,7 @@ export class Popup{
       this.close();
     }if (e.target.classList.contains('popup_opened')) {
       this.close();
-    }
+    };
    });
   };
   
