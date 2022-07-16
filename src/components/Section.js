@@ -11,8 +11,8 @@ export class Section {
     });
   };
 
-  renderer() {
-    this._renderer(this._items);
+  renderer(item) {
+    this._renderer(item);
   };
 
   addItem(item) {
