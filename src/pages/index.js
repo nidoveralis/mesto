@@ -1,16 +1,26 @@
 import { FormValidator } from "../components/FormValidator.js";
 import { Card } from "../components/Card.js";
-import { Popup } from "../components/Popup.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { Section } from "../components/Section.js";
+import "./index.css";
+import antverpen from "../images/Belgium.jpg";
+import kembrij from "../images/Cambridge.jpg";
+import dubai from "../images/Dubai_United_Arab_Emirates.jpg";
+import paris from "../images/France.jpg";
+import arli from "../images/arl.jpg";
+import roterdam from "../images/Rotterdam.jpg";
+import avatar from "../images/imagejack-kysto.jpg"
 
 const editButton = document.querySelector('.profile-info__edit');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_job');
 const addButton = document.querySelector('.profile__add-button');
 const templeteElement = document.querySelector('.add-element');
+const profileAvatar = document.querySelector('.profile__avatar')
+profileAvatar.style.backgroundImage = `url(${avatar})`
+
 
 const objectValid = {
   formSelector: '.popup__form',
@@ -24,27 +34,27 @@ const objectValid = {
 const dataCards = [
   {
     title: "Антверпен, Бельгия",
-    link: "./images/Belgium.jpg"
+    link: antverpen
   },
   {
     title: "Кембридж, США",
-    link: "./images/Cambridge.jpg"
+    link: kembrij
   },
   {
     title: "Дубай, ОАЭ",
-    link: "./images/Dubai_United_Arab_Emirates.jpg"
+    link: dubai
   },
   {
     title: "Париж, Франция",
-    link: "./images/France.jpg"
+    link: paris
   },
   {
     title: "Арль, Франция",
-    link: "./images/arl.jpg"
+    link: arli
   },
   {
     title: "Ротердам, Нидерланды",
-    link: "./images/Rotterdam.jpg"
+    link: roterdam
   },
 ];
 

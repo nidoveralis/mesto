@@ -5,18 +5,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Место</title>
 </head>
 
 <body>
   <div class="page">
     <header class="header">
-      <img src="./images/header__logo.svg" alt="Логотип" class="header__logo">
+      <img src="<%=require('./images/header__logo.svg')%>" alt="Логотип" class="header__logo">
     </header>
     <main class="content">
       <section class="profile">
-        <div class="profile__avatar" style="background-image: url('./images/imagejack-kysto.jpg');"></div>
+        <div class="profile__avatar"></div>
         <div class="profile-info">
           <h1 class="profile-info__title">Жак-Ив Кусто</h1>
           <button class="profile-info__edit button" type="button"></button>
@@ -84,10 +83,6 @@
         <button class="element__like button" type="button"></button>
       </div>
     </template>
-
-  <script type="module" src="./pages/index.js"></script>
-  <script type="module" src="./components/FormValidator.js"></script>
-  <script type="module" src="./components/Card.js"></script>
   
 </body>
 </html>
