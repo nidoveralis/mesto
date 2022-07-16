@@ -5,18 +5,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Место</title>
 </head>
 
 <body>
   <div class="page">
     <header class="header">
-      <img src="./images/header__logo.svg" alt="Логотип" class="header__logo">
+      <img src="<%=require('./images/header__logo.svg')%>" alt="Логотип" class="header__logo">
     </header>
     <main class="content">
       <section class="profile">
-        <div class="profile__avatar" style="background-image: url('./images/imagejack-kysto.jpg');"></div>
+        <div class="profile__avatar"></div>
         <div class="profile-info">
           <h1 class="profile-info__title">Жак-Ив Кусто</h1>
           <button class="profile-info__edit button" type="button"></button>
@@ -41,7 +40,7 @@
             <span class="name-input-error input-error"></span>
           </fieldset> 
           <fieldset class="popup__field">
-          <input  id="job-input" type="text" class="popup__input popup__input_type_job" name="job" placeholder="О себе" minlength="2" maxlength="200" required>
+          <input  id="job-input" type="text" class="popup__input popup__input_type_job" name="info" placeholder="О себе" minlength="2" maxlength="200" required>
           <span class="job-input-error input-error"></span> 
           </fieldset>
           <input type="submit" value="Сохранить" class="popup__button-save">
@@ -55,11 +54,11 @@
         <form class="popup__form form-element" name="new-element" novalidate>
           <h2 class="popup__title">Новое место</h2>
           <fieldset class="popup__field">
-            <input id="name-element-input" type="text" class="popup__input popup__input_type_title" name="name-element" placeholder="Название" minlength="2" maxlength="30" required>
+            <input id="name-element-input" type="text" class="popup__input popup__input_type_title" name="title" placeholder="Название" minlength="2" maxlength="30" required>
             <span class="name-element-input-error input-error"></span> 
           </fieldset>
           <fieldset class="popup__field">
-            <input id="link-element-input" type="url" class="popup__input popup__input_type_link" name="link-element" placeholder="Ссылка на картинку" required>
+            <input id="link-element-input" type="url" class="popup__input popup__input_type_link" name="link" placeholder="Ссылка на картинку" required>
             <span class="link-element-input-error input-error"></span> 
           </fieldset>
           <input type="submit" value="Создать" class="popup__button-save">
@@ -84,10 +83,6 @@
         <button class="element__like button" type="button"></button>
       </div>
     </template>
-
-  <script type="module" src="./pages/index.js"></script>
-  <script type="module" src="./scripts/FormValidator.js"></script>
-  <script type="module" src="./scripts/Card.js"></script>
   
 </body>
 </html>
