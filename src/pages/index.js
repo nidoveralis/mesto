@@ -26,7 +26,6 @@ enableValidation('.popup__form');
 
 function handleCardClick(data) {
   picture.open(data);
-  picture.setEventListeners();
 };
 
 function createCard(item) {
@@ -41,6 +40,7 @@ const cardsList = new Section({data: dataCards, renderer: (cardItem)=>{
 
 const user = new UserInfo({name: '.profile-info__title', job:'.profile-info__subtitle'});
 const picture = new PopupWithImage('.popup-picture');
+picture.setEventListeners();
 const formUser = new PopupWithForm({
   popup: '.popup-profile',
   handelSubmit: (formData) => {
