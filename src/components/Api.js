@@ -1,17 +1,19 @@
 export class Api{
-  constructor() {
-
+  constructor(data) {
+    this._baseUrl = data.baseUrl;
+    this._authorization = data.authorization;
   };
 
   getInitialCards() {
-
+    return fetch(`${this._baseUrl}/cards`, {
+      headers: {
+        authorization: this._authorization
+      }
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+    })
   };
 };
-
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-42',
-  headers: {
-    authorization: 'c56e30dc-2883-4270-a59e-b2f7bae969c6',
-    'Content-Type': 'application/json'
-  }
-}); 

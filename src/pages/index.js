@@ -7,6 +7,7 @@ import { Section } from "../components/Section.js";
 import "./index.css";
 import {editButton, addButton, templeteElement, profileAvatar, objectValid, dataCards} from "../utils/constants.js"
 import avatar from "../images/imagejack-kysto.jpg"
+import { Api } from "../components/Api.js";
 
 profileAvatar.style.backgroundImage = `url(${avatar})`;
 
@@ -34,9 +35,21 @@ function createCard(item) {
   return cardElement
 }; 
 
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-46',
+    authorization: '06e3f763-f2b1-4684-bbaa-5354631af55c',
+});
+
 const cardsList = new Section({data: dataCards, renderer: (cardItem)=>{ 
   cardsList.addItem(createCard(cardItem)); 
   }}, '.elements'); 
+
+  api.getInitialCards().then((items)=>{
+    items.forEach(item=>{
+      cardsList.renderer(item);
+    })
+  })
 
 const user = new UserInfo({name: '.profile-info__title', job:'.profile-info__subtitle'});
 const picture = new PopupWithImage('.popup-picture');
