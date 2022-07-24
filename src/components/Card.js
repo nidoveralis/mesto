@@ -1,7 +1,6 @@
 export class Card {
   constructor(data, templeteElement, handleCardClick){
-    this._data=data;
-    this._title = data.title;
+    this._title = data.name;
     this._link = data.link;
     this._templeteElement = templeteElement;
     this._handleCardClick = handleCardClick;

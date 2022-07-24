@@ -10,6 +10,6 @@ export class UserInfo{
 
   setUserInfo(data) {
     this._title.textContent = data.name;
-    this._subtitle.textContent = data.info;
+    this._subtitle.textContent = data.about;
   };
 };

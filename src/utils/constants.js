@@ -21,27 +21,27 @@ export const objectValid = {
 
 export const dataCards = [
   {
-    title: "Антверпен, Бельгия",
+    name: "Антверпен, Бельгия",
     link: antverpen
   },
   {
-    title: "Кембридж, США",
+    name: "Кембридж, США",
     link: kembrij
   },
   {
-    title: "Дубай, ОАЭ",
+    name: "Дубай, ОАЭ",
     link: dubai
   },
   {
-    title: "Париж, Франция",
+    name: "Париж, Франция",
     link: paris
   },
   {
-    title: "Арль, Франция",
+    name: "Арль, Франция",
     link: arli
   },
   {
-    title: "Ротердам, Нидерланды",
+    name: "Ротердам, Нидерланды",
     link: roterdam
   },
 ];
