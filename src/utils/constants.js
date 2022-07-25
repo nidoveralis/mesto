@@ -6,6 +6,7 @@ import arli from "../images/arl.jpg";
 import roterdam from "../images/Rotterdam.jpg";
 
 export const editButton = document.querySelector('.profile-info__edit');
+export const avatar = document.querySelector('.profile__edit-avatar');
 export const addButton = document.querySelector('.profile__add-button');
 export const templeteElement = document.querySelector('.add-element');
 export const profileAvatar = document.querySelector('.profile__avatar');

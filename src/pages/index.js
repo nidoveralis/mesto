@@ -5,8 +5,8 @@ import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { Section } from "../components/Section.js";
 import "./index.css";
-import {editButton, addButton, templeteElement, profileAvatar, objectValid, dataCards} from "../utils/constants.js"
-import avatar from "../images/imagejack-kysto.jpg"
+import {editButton, avatar, addButton, templeteElement, profileAvatar, objectValid, dataCards} from "../utils/constants.js"
+import avatarImg from "../images/imagejack-kysto.jpg"
 import { Api } from "../components/Api.js";
 
 const config = {
@@ -17,7 +17,7 @@ const config = {
 }
 }
 
-profileAvatar.style.backgroundImage = `url(${avatar})`;
+profileAvatar.style.backgroundImage = `url(${avatarImg})`;
 
 const formValidators = {};
 
@@ -38,22 +38,21 @@ function handleCardClick(data) {
 };
 
 function createCard(item) {
-  const card = new Card(item, templeteElement, handleCardClick);
+  const card = new Card(item, templeteElement, handleCardClick, {likesCard: (id)=>{
+    api.likeCard(id);
+  }});
   const cardElement = card.generationCard();
   return cardElement
 };
 
-const api = new Api(config);
-api.getInitialCards().then((items)=>{
+function a(items) {
   const cardsList = new Section({data: items, renderer: (cardItem)=>{ 
-    cardsList.addItem(createCard(cardItem)); 
-    }}, '.elements');
-    cardsList.renderItems(); 
-});
+    cardsList.addItem(createCard(cardItem)); }}, '.elements');
+  cardsList.renderItems();
+};
 
-//const cardsList = new Section({data: dataCards, renderer: (cardItem)=>{ 
-  //cardsList.addItem(createCard(cardItem)); 
-  //}}, '.elements'); 
+const api = new Api(config);
+api.getInitialCards().then((items)=>a(items));
 
 const user = new UserInfo({name: '.profile-info__title', job:'.profile-info__subtitle'});
 const picture = new PopupWithImage('.popup-picture');
@@ -67,22 +66,44 @@ const formUser = new PopupWithForm({
   }
 });
 
+const popupDelete = new PopupWithForm({popup: '.popup-deleteCard', handelSubmit: (data)=>{
+  console.log(data)
+}});
+
 const formCard = new PopupWithForm({
   popup: '.popup-elements',
   handelSubmit: (formData) => {
-    //cardsList.renderer(formData);
-    api.addNewCard(formData);
+    a(api.addNewCard(formData));
   }
 });
 
-function editProfile() {
-  openProfileForm();
-  formValidators['personal-info'].resetValidation();
+const formAvatar = new PopupWithForm({
+  popup: '.popup-avatar',
+  handelSubmit: (formData) => {
+    console.log(formData)
+    //a(api.addNewCard(formData));
+  }
+});
+
+function openAvatarForm() {
+  formAvatar.open();
+  //formUser.setInputValues(user.getUserInfo());
 };
+
+function editAvatar() {
+  openAvatarForm();
+  formValidators['personal-info'].resetValidation();
+  //formAvatar.setInputValues
+}
 
 function openProfileForm() {
   formUser.open();
   formUser.setInputValues(user.getUserInfo());
+};
+
+function editProfile() {
+  openProfileForm();
+  formValidators['personal-info'].resetValidation();
 };
 
 function openAddElementForm() {
@@ -93,6 +114,8 @@ function openAddElementForm() {
 ///cardsList.renderItems(); 
 formUser.setEventListeners();
 formCard.setEventListeners();
-
+popupDelete.setEventListeners();
+formAvatar.setEventListeners();
 editButton.addEventListener('click', editProfile);
 addButton.addEventListener('click', openAddElementForm);
+avatar.addEventListener('click', editAvatar)
