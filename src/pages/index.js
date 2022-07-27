@@ -15,9 +15,7 @@ const config = {
     authorization: '06e3f763-f2b1-4684-bbaa-5354631af55c',
     'Content-Type': 'application/json'
 }
-}
-
-profileAvatar.style.backgroundImage = `url(${avatarImg})`;
+};
 
 const formValidators = {};
 
@@ -31,32 +29,43 @@ const enableValidation = (config) => {
   });
 };
 
+const api = new Api(config);
+
 enableValidation('.popup__form');
 
 function handleCardClick(data) {
   picture.open(data);
 };
 
-function createCard(item) {
-  const card = new Card(item, templeteElement, handleCardClick, {likesCard: (id)=>{
-    api.likeCard(id);
-  }});
+function createCard(item) {///создаёт карточку
+  const card = new Card(item, templeteElement, handleCardClick, handelCardDelete, {activDeleteIcon: (id)=>{
+    api.getUser().then((data)=>{
+      if(data._id === id){ ///сравнивает id
+        card.activeDelete();
+      }})
+  }}, addLike);
   const cardElement = card.generationCard();
   return cardElement
 };
 
-function a(items) {
-  const cardsList = new Section({data: items, renderer: (cardItem)=>{ 
-    cardsList.addItem(createCard(cardItem)); }}, '.elements');
-  cardsList.renderItems();
+function addLike(id) {
+  api.addlike(id).then(data=>console.log(data))
+}
+
+const formDeleteCard = new PopupWithForm({popup: '.popup-deleteCard', handelDelete: (id,el)=>{
+  api.deleteCard(id)
+}})
+
+function handelCardDelete(id, elem) {////отправляет форме данные для удаления
+  formDeleteCard.open();
+  formDeleteCard.delcard(id,elem);
 };
 
-const api = new Api(config);
-api.getInitialCards().then((items)=>a(items));
+profileAvatar.style.backgroundImage = `url(${avatarImg})`;
 
-const user = new UserInfo({name: '.profile-info__title', job:'.profile-info__subtitle'});
-const picture = new PopupWithImage('.popup-picture');
-picture.setEventListeners();
+const user = new UserInfo({name: '.profile-info__title', about:'.profile-info__subtitle'});
+api.getUser().then(data=> {user.setUserInfo({name: data.name, about:data.about})})
+
 const formUser = new PopupWithForm({
   popup: '.popup-profile',
   handelSubmit: (formData) => {
@@ -66,16 +75,38 @@ const formUser = new PopupWithForm({
   }
 });
 
-const popupDelete = new PopupWithForm({popup: '.popup-deleteCard', handelSubmit: (data)=>{
-  console.log(data)
-}});
+function openProfileForm() {
+  formUser.open();
+  formUser.setInputValues(user.getUserInfo());
+};
+
+api.getInitialCards().then((items)=>{
+  items.forEach(item=>{cardsList.renderer(item)})
+    cardsList.renderItems();
+});
+
+//api.getInitialCards().then((items)=>{
+  //items.forEach(item=>{cardsList.renderer(item)})
+    //cardsList.renderItems();
+//});
+
+const cardsList = new Section({renderer: (cardItem)=>{ 
+  cardsList.addItem(createCard(cardItem))}},
+   '.elements');
+
+const picture = new PopupWithImage('.popup-picture');
 
 const formCard = new PopupWithForm({
   popup: '.popup-elements',
   handelSubmit: (formData) => {
-    a(api.addNewCard(formData));
+  api.addNewCard(formData).then((data)=>{cardsList.renderer(data)})
   }
 });
+
+function openAddElementForm() {
+  formCard.open();
+  formValidators['new-element'].resetValidation();
+};
 
 const formAvatar = new PopupWithForm({
   popup: '.popup-avatar',
@@ -94,11 +125,6 @@ function editAvatar() {
   openAvatarForm();
   formValidators['personal-info'].resetValidation();
   //formAvatar.setInputValues
-}
-
-function openProfileForm() {
-  formUser.open();
-  formUser.setInputValues(user.getUserInfo());
 };
 
 function editProfile() {
@@ -106,16 +132,13 @@ function editProfile() {
   formValidators['personal-info'].resetValidation();
 };
 
-function openAddElementForm() {
-  formCard.open();
-  formValidators['new-element'].resetValidation();
-};
-
 ///cardsList.renderItems(); 
 formUser.setEventListeners();
 formCard.setEventListeners();
-popupDelete.setEventListeners();
+picture.setEventListeners();
 formAvatar.setEventListeners();
+formDeleteCard.setEventListeners();
+
 editButton.addEventListener('click', editProfile);
 addButton.addEventListener('click', openAddElementForm);
 avatar.addEventListener('click', editAvatar)

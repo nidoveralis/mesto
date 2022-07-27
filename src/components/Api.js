@@ -4,6 +4,17 @@ export class Api{
     this._headers = data.headers;
   };
 
+  getUser() {
+    return fetch(`${this._baseUrl}/users/me`, {
+      headers: this._headers
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+  }
+
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers
@@ -21,7 +32,7 @@ export class Api{
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-        about: data.info
+        about: data.about
       })
     },
     )
@@ -49,13 +60,14 @@ export class Api{
   }
 
   deleteCard(data) {
+    console.log(this._baseUrl)
     return fetch(`${this._baseUrl}/cards/${data}`, {
-      method: 'dalete',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: data.title,
-        link: data.link
-      })
+      method: 'DELETE',
+      headers: this._headers
+      //body: JSON.stringify({
+        //name: data.title,
+        //link: data.link
+      //})
     })
     .then(res=>{
       if (res.ok) {
@@ -64,7 +76,7 @@ export class Api{
     })
   }
 
-  likeCard(cardId) {
+  addlike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: this._headers
@@ -84,7 +96,7 @@ export class Api{
     .then(res=>{
       if (res.ok) {
         return res.json()
-      }
+     }
     })
   }
 };
