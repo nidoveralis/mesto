@@ -6,6 +6,7 @@ import arli from "../images/arl.jpg";
 import roterdam from "../images/Rotterdam.jpg";
 
 export const editButton = document.querySelector('.profile-info__edit');
+export const avatar = document.querySelector('.profile__edit-avatar');
 export const addButton = document.querySelector('.profile__add-button');
 export const templeteElement = document.querySelector('.add-element');
 export const profileAvatar = document.querySelector('.profile__avatar');
@@ -21,27 +22,27 @@ export const objectValid = {
 
 export const dataCards = [
   {
-    title: "Антверпен, Бельгия",
+    name: "Антверпен, Бельгия",
     link: antverpen
   },
   {
-    title: "Кембридж, США",
+    name: "Кембридж, США",
     link: kembrij
   },
   {
-    title: "Дубай, ОАЭ",
+    name: "Дубай, ОАЭ",
     link: dubai
   },
   {
-    title: "Париж, Франция",
+    name: "Париж, Франция",
     link: paris
   },
   {
-    title: "Арль, Франция",
+    name: "Арль, Франция",
     link: arli
   },
   {
-    title: "Ротердам, Нидерланды",
+    name: "Ротердам, Нидерланды",
     link: roterdam
   },
 ];

@@ -12,7 +12,8 @@ export class Section {
   };
 
   renderer(item) {
-    this._renderer(item);
+    //console.log(item)
+    this._renderer(item, this._metodAdd);
   };
 
   addItem(item) {
