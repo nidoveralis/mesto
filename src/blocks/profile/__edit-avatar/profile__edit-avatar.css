@@ -19,3 +19,9 @@
 .profile__edit-avatar:hover {
   opacity: .8;
 }
+
+@media screen and (min-width: 600px) {
+  .profile__edit-avatar {
+    align-self: flex-start;
+  }
+}

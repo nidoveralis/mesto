@@ -23,6 +23,6 @@
   .profile {
     margin: 42px 0 36px;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
   }
 }

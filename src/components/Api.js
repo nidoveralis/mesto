@@ -57,24 +57,19 @@ export class Api{
         return res.json()
       }
     })
-  }
+  };
 
   deleteCard(data) {
-    console.log(this._baseUrl)
     return fetch(`${this._baseUrl}/cards/${data}`, {
       method: 'DELETE',
       headers: this._headers
-      //body: JSON.stringify({
-        //name: data.title,
-        //link: data.link
-      //})
     })
     .then(res=>{
       if (res.ok) {
         return res.json()
       }
     })
-  }
+  };
 
   addlike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
@@ -86,7 +81,7 @@ export class Api{
         return res.json()
       }
     })
-  }
+  };
 
   deleteLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
@@ -98,5 +93,33 @@ export class Api{
         return res.json()
      }
     })
-  }
+  };
+
+  showAvatar() {
+    return fetch(`${this._baseUrl}/users/me`, {
+      headers: this._headers,
+    },
+    )
+    .then(res=>{
+      if (res.ok) {
+        return res.json()
+      }
+    })
+  };
+
+  editAvatar(data) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: data.avatar
+      })
+    },
+    )
+    .then(res=>{
+      if (res.ok) {
+        return res.json()
+      }
+    })
+  };
 };

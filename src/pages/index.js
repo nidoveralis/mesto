@@ -42,15 +42,22 @@ function createCard(item) {///создаёт карточку
     api.getUser().then((data)=>{
       if(data._id === id){ ///сравнивает id
         card.activeDelete();
-      }})
-  }}, addLike);
+      }})}}, 
+    {addLike: (id, likes)=> {///добавляет лайки и возвращает их колличество
+      api.getUser().then(data=>{
+        likes.forEach(like=>{
+          if(like._id === data._id){
+            api.deleteLike(id).then(data=>{card.countlike(data.likes.length)})
+          }else{
+            api.addlike(id).then(data=>{card.countlike(data.likes.length)})
+          }
+        })
+      })
+   // 
+    }})
   const cardElement = card.generationCard();
   return cardElement
 };
-
-function addLike(id) {
-  api.addlike(id).then(data=>console.log(data))
-}
 
 const formDeleteCard = new PopupWithForm({popup: '.popup-deleteCard', handelDelete: (id,el)=>{
   api.deleteCard(id)
@@ -61,7 +68,9 @@ function handelCardDelete(id, elem) {////отправляет форме дан�
   formDeleteCard.delcard(id,elem);
 };
 
-profileAvatar.style.backgroundImage = `url(${avatarImg})`;
+api.showAvatar().then(data=>{
+  profileAvatar.style.backgroundImage = `url(${data.avatar})`;
+});
 
 const user = new UserInfo({name: '.profile-info__title', about:'.profile-info__subtitle'});
 api.getUser().then(data=> {user.setUserInfo({name: data.name, about:data.about})})
@@ -111,19 +120,20 @@ function openAddElementForm() {
 const formAvatar = new PopupWithForm({
   popup: '.popup-avatar',
   handelSubmit: (formData) => {
-    console.log(formData)
-    //a(api.addNewCard(formData));
+    api.editAvatar(formData).then(data=>{
+      profileAvatar.style.backgroundImage = `url(${data.avatar})`;
+    })
   }
 });
 
 function openAvatarForm() {
   formAvatar.open();
-  //formUser.setInputValues(user.getUserInfo());
+  formAvatar.setInputValues({avatar:profileAvatar.style.backgroundImage.replace(/[\"\(\)\url]/g,"")});
 };
 
 function editAvatar() {
   openAvatarForm();
-  formValidators['personal-info'].resetValidation();
+  formValidators['avatar'].resetValidation();
   //formAvatar.setInputValues
 };
 
