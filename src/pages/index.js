@@ -33,6 +33,8 @@ const api = new Api(config);
 
 enableValidation('.popup__form');
 
+const picture = new PopupWithImage('.popup-picture');
+
 function handleCardClick(data) {
   picture.open(data);
 };
@@ -60,7 +62,8 @@ function createCard(item) {///создаёт карточку
 };
 
 const formDeleteCard = new PopupWithForm({popup: '.popup-deleteCard', handelDelete: (id,el)=>{
-  api.deleteCard(id)
+  formDeleteCard.renderLoading(true);
+  api.deleteCard(id).finally(()=>formDeleteCard.renderLoading(false));
 }})
 
 function handelCardDelete(id, elem) {////отправляет форме данные для удаления
@@ -68,19 +71,17 @@ function handelCardDelete(id, elem) {////отправляет форме дан�
   formDeleteCard.delcard(id,elem);
 };
 
-api.showAvatar().then(data=>{
-  profileAvatar.style.backgroundImage = `url(${data.avatar})`;
-});
-
 const user = new UserInfo({name: '.profile-info__title', about:'.profile-info__subtitle'});
 api.getUser().then(data=> {user.setUserInfo({name: data.name, about:data.about})})
 
 const formUser = new PopupWithForm({
   popup: '.popup-profile',
   handelSubmit: (formData) => {
+    formUser.renderLoading(true);
     api.editUser(formData).then((data)=>{
       user.setUserInfo(data);
-    });
+    })
+    .finally(()=>formDeleteCard.renderLoading(false));
   }
 });
 
@@ -94,21 +95,17 @@ api.getInitialCards().then((items)=>{
     cardsList.renderItems();
 });
 
-//api.getInitialCards().then((items)=>{
-  //items.forEach(item=>{cardsList.renderer(item)})
-    //cardsList.renderItems();
-//});
-
 const cardsList = new Section({renderer: (cardItem)=>{ 
   cardsList.addItem(createCard(cardItem))}},
    '.elements');
 
-const picture = new PopupWithImage('.popup-picture');
-
 const formCard = new PopupWithForm({
   popup: '.popup-elements',
   handelSubmit: (formData) => {
-  api.addNewCard(formData).then((data)=>{cardsList.renderer(data)})
+    formCard.renderLoading(true);
+    api.addNewCard(formData)
+    .then((data)=>{cardsList.renderer(data)})
+    .finally(()=>formDeleteCard.renderLoading(false));
   }
 });
 
@@ -117,24 +114,30 @@ function openAddElementForm() {
   formValidators['new-element'].resetValidation();
 };
 
+api.showAvatar().then(data=>{
+  profileAvatar.style.backgroundImage = `url(${data.avatar})`;
+});
+
 const formAvatar = new PopupWithForm({
   popup: '.popup-avatar',
   handelSubmit: (formData) => {
-    api.editAvatar(formData).then(data=>{
+    formAvatar.renderLoading(true);
+    api.editAvatar(formData)
+    .then(data=>{
       profileAvatar.style.backgroundImage = `url(${data.avatar})`;
     })
+    .finally(()=>formDeleteCard.renderLoading(false));
   }
 });
-
-function openAvatarForm() {
-  formAvatar.open();
-  formAvatar.setInputValues({avatar:profileAvatar.style.backgroundImage.replace(/[\"\(\)\url]/g,"")});
-};
 
 function editAvatar() {
   openAvatarForm();
   formValidators['avatar'].resetValidation();
-  //formAvatar.setInputValues
+};
+
+function openAvatarForm() {
+  formAvatar.open();
+  formAvatar.setInputValues({avatar:profileAvatar.style.backgroundImage.replace(/[\"\(\)\url]/g,"")});
 };
 
 function editProfile() {
@@ -151,4 +154,10 @@ formDeleteCard.setEventListeners();
 
 editButton.addEventListener('click', editProfile);
 addButton.addEventListener('click', openAddElementForm);
-avatar.addEventListener('click', editAvatar)
+avatar.addEventListener('click', editAvatar);
+
+
+//api.getInitialCards().then((items)=>{
+  //items.forEach(item=>{cardsList.renderer(item)})
+    //cardsList.renderItems();
+//});
