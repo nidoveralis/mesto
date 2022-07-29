@@ -37,13 +37,13 @@ export class PopupWithForm extends Popup{
     this._form.reset();
   };
 
-  delcard(id,el) {///для удаления карты
-    this._form.addEventListener('submit',(e)=> {
-      e.preventDefault();
-      this._handelDelete(id,el)
-      this.close();
-  });
-  };
+  //delcard(id,el) {///для удаления карты
+    //this._form.addEventListener('submit',(e)=> {
+      //e.preventDefault();
+      //this._handelDelete(id,el)
+      //this.close();
+  //});
+  //};
 
   renderLoading(isLoading) {
     this._buttonSave = this._form.querySelector('.popup__button-save')

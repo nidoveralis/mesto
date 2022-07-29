@@ -15,9 +15,7 @@ export class Api{
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
     })
-    .then(res => {
-      this._getResponseData(res);
-      }
+    .then(res => this._getResponseData(res)
     )
   }
 
@@ -62,6 +60,7 @@ export class Api{
   };
 
   addlike(cardId) {
+    console.log('ooooo')
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: this._headers
@@ -70,6 +69,7 @@ export class Api{
   };
 
   deleteLike(cardId) {
+    console.log('vizov')
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: this._headers

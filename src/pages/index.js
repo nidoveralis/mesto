@@ -3,19 +3,11 @@ import { Card } from "../components/Card.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
+import { FormDelete } from "../components/FormDelete.js";
 import { Section } from "../components/Section.js";
 import "./index.css";
-import {editButton, avatar, addButton, templeteElement, profileAvatar, objectValid, dataCards} from "../utils/constants.js"
-import avatarImg from "../images/imagejack-kysto.jpg"
+import {editButton, avatar, addButton, templeteElement, profileAvatar, objectValid, config} from "../utils/constants.js"
 import { Api } from "../components/Api.js";
-
-const config = {
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-46',
-  headers: {
-    authorization: '06e3f763-f2b1-4684-bbaa-5354631af55c',
-    'Content-Type': 'application/json'
-}
-};
 
 const formValidators = {};
 
@@ -40,38 +32,33 @@ function handleCardClick(data) {
 };
 
 function createCard(item) {///создаёт карточку
-  const card = new Card(item, templeteElement, handleCardClick, handelCardDelete, {activDeleteIcon: (id)=>{
+  const card = new Card(item, templeteElement, handleCardClick, handelCardDelete, 
+    {activDeleteIcon: (id)=>{
     api.getUser().then((data)=>{
       if(data._id === id){ ///сравнивает id
         card.activeDelete();
       }})}}, 
-    {addLike: (id, likes)=> {///добавляет лайки и возвращает их колличество
-      api.getUser().then(data=>{
-        likes.forEach(like=>{
-          if(like._id === data._id){
-            api.deleteLike(id).then(data=>{card.countlike(data.likes.length)})
-          }else{
-            api.addlike(id).then(data=>{card.countlike(data.likes.length)})
-          }
-        })
-      })
-   // 
-    }})
+    {like: ()=> {///добавляет лайки и возвращает их колличество
+      api.getUser().then(data=> card.likes(data))
+    }},
+    {addLike: (id)=>api.addlike(id).then(data=>{card.countlike(data.likes)})},
+    {deleteLike: (id)=>api.deleteLike(id).then(data=>{card.countlike(data.likes)})}
+    )
   const cardElement = card.generationCard();
   return cardElement
 };
 
-const formDeleteCard = new PopupWithForm({popup: '.popup-deleteCard', handelDelete: (id,el)=>{
+const formDeleteCard = new FormDelete({popup: '.popup-deleteCard', handelDelete: (id,el)=>{
   formDeleteCard.renderLoading(true);
   api.deleteCard(id).finally(()=>formDeleteCard.renderLoading(false));
 }})
 
 function handelCardDelete(id, elem) {////отправляет форме данные для удаления
   formDeleteCard.open();
-  formDeleteCard.delcard(id,elem);
+  formDeleteCard.camelCase(id,elem);
 };
 
-const user = new UserInfo({name: '.profile-info__title', about:'.profile-info__subtitle'});
+const user = new UserInfo({name: '.profile-info__title', about:'.profile-info__subtitle', avatar: '.profile__avatar'});
 api.getUser().then(data=> {user.setUserInfo({name: data.name, about:data.about})})
 
 const formUser = new PopupWithForm({
@@ -81,7 +68,7 @@ const formUser = new PopupWithForm({
     api.editUser(formData).then((data)=>{
       user.setUserInfo(data);
     })
-    .finally(()=>formDeleteCard.renderLoading(false));
+    .finally(()=>formUser.renderLoading(false));
   }
 });
 
@@ -91,9 +78,16 @@ function openProfileForm() {
 };
 
 api.getInitialCards().then((items)=>{
-  items.forEach(item=>{cardsList.renderer(item)})
-    cardsList.renderItems();
+  items.forEach(item=>{cardsList.renderer(item)});
 });
+
+//Promise.all([ //в Promise.all передаем массив промисов которые нужно выполнить
+  //api.getUser(),
+  //api.getInitialCards()
+//]).then((items)=>{console.log(items)
+  //items.forEach(item=>{cardsList.renderer(item)});
+//});
+
 
 const cardsList = new Section({renderer: (cardItem)=>{ 
   cardsList.addItem(createCard(cardItem))}},
@@ -115,7 +109,7 @@ function openAddElementForm() {
 };
 
 api.showAvatar().then(data=>{
-  profileAvatar.style.backgroundImage = `url(${data.avatar})`;
+  user.editAvatar(data.avatar)
 });
 
 const formAvatar = new PopupWithForm({
@@ -124,7 +118,7 @@ const formAvatar = new PopupWithForm({
     formAvatar.renderLoading(true);
     api.editAvatar(formData)
     .then(data=>{
-      profileAvatar.style.backgroundImage = `url(${data.avatar})`;
+      user.editAvatar(data.avatar)
     })
     .finally(()=>formDeleteCard.renderLoading(false));
   }
@@ -145,7 +139,6 @@ function editProfile() {
   formValidators['personal-info'].resetValidation();
 };
 
-///cardsList.renderItems(); 
 formUser.setEventListeners();
 formCard.setEventListeners();
 picture.setEventListeners();
@@ -155,9 +148,3 @@ formDeleteCard.setEventListeners();
 editButton.addEventListener('click', editProfile);
 addButton.addEventListener('click', openAddElementForm);
 avatar.addEventListener('click', editAvatar);
-
-
-//api.getInitialCards().then((items)=>{
-  //items.forEach(item=>{cardsList.renderer(item)})
-    //cardsList.renderItems();
-//});

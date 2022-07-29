@@ -6,11 +6,7 @@ export class FormDelete extends Popup{
     this._handleSubmit = handelSubmit;
   };
 
-  setEventListeners() {
-    super.setEventListeners();
-  };
-
-  delcard(id,el) {
+  camelCase(id,el) {
     this._form.addEventListener('submit',(e)=> {
       e.preventDefault();
       this._handleSubmit(id,el)

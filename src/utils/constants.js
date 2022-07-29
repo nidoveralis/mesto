@@ -46,3 +46,11 @@ export const dataCards = [
     link: roterdam
   },
 ];
+
+export const config = {
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-46',
+  headers: {
+    authorization: '06e3f763-f2b1-4684-bbaa-5354631af55c',
+    'Content-Type': 'application/json'
+}
+};

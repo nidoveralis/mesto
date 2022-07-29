@@ -5,9 +5,7 @@ export class Card {
     handleCardClick,
     handelCardDelete,
     { activDeleteIcon },
-    { addLike }
-  ) {
-    this._data = data;
+    { like }, {addLike},{deleteLike}) {
     this._idUser = data.owner._id;
     this._id = data._id;
     this._title = data.name;
@@ -17,15 +15,17 @@ export class Card {
     this._handleCardClick = handleCardClick;
     this._activDeleteIcon = activDeleteIcon;
     this._handelCardDelete = handelCardDelete;
+    this._showLike = like;
     this._addLike = addLike;
-  }
+    this._deleteLike = deleteLike;
+  };
 
   _getTemplate() {
     const newCard = this._templeteElement.content
       .querySelector(".element")
       .cloneNode(true);
     return newCard;
-  }
+  };
 
   generationCard() {
     this._element = this._getTemplate();
@@ -40,7 +40,7 @@ export class Card {
     this._activDeleteIcon(this._idUser);
     this._setEventListeners();
     return this._element;
-  }
+  };
 
   _setEventListeners() {
     this._cardLike.addEventListener("click", () => this._likeCard());
@@ -48,22 +48,34 @@ export class Card {
     this._cardImage.addEventListener("click", () => {
       this._handleCardClick({ name: this._title, link: this._link });
     });
-  }
+  };
 
   activeDelete() {
     this._cardDelete.classList.add("element__delete_active");
-  }
+  };
 
   _deleteCard() {
     this._handelCardDelete(this._id, this._element);
     this._element.remove();
-  }
+  };
 
   _likeCard() {
     this._cardLike.classList.toggle("element__like_active");
-    this._addLike(this._id, this._likes);
+    this._showLike(this._id, this._likes);
+  };
+
+  likes(data) {
+    this._likes.forEach((like)=>{
+      if(like._id === data._id){
+        this._deleteLike(this._id);
+      }else{
+        this._addLike(this._id);
+      }
+    })
   }
+
   countlike(count) {///показывает колличество лайков
-    this._countLike.textContent = count;
-  }
-}
+    console.log(count)
+    this._countLike.textContent = count.length;
+  };
+};
