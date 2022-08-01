@@ -61,21 +61,20 @@ export class Card {
 
   _likeCard() {
     this._cardLike.classList.toggle("element__like_active");
-    this._showLike(this._id, this._likes);
+    this._showLike(this._id);
   };
 
   likes(data) {
-    this._likes.forEach((like)=>{
-      if(like._id === data._id){
-        this._deleteLike(this._id);
-      }else{
-        this._addLike(this._id);
-      }
-    })
+    const myLike = this._likes.some(item=> item._id===data._id)
+    if(!myLike){
+      this._addLike(this._id);
+    }else{
+      this._deleteLike(this._id);
+    }
   }
 
   countlike(count) {///показывает колличество лайков
-    console.log(count)
-    this._countLike.textContent = count.length;
+    this._likes = count.likes;
+    this._countLike.textContent = count.likes.length;
   };
 };

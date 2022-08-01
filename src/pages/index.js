@@ -41,22 +41,27 @@ function createCard(item) {///создаёт карточку
     {like: ()=> {///добавляет лайки и возвращает их колличество
       api.getUser().then(data=> card.likes(data))
     }},
-    {addLike: (id)=>api.addlike(id).then(data=>{card.countlike(data.likes)})},
-    {deleteLike: (id)=>api.deleteLike(id).then(data=>{card.countlike(data.likes)})}
+    {addLike: (id)=>{
+      api.addlike(id)
+      .then(data=>card.countlike(data))
+    }},
+    {deleteLike: (id)=>{
+      api.deleteLike(id)
+      .then(data=>card.countlike(data))
+    }}
     )
   const cardElement = card.generationCard();
   return cardElement
 };
 
-const formDeleteCard = new FormDelete({popup: '.popup-deleteCard', handelDelete: (id,el)=>{
-  formDeleteCard.renderLoading(true);
-  api.deleteCard(id).finally(()=>formDeleteCard.renderLoading(false));
-}})
-
 function handelCardDelete(id, elem) {////отправляет форме данные для удаления
   formDeleteCard.open();
   formDeleteCard.camelCase(id,elem);
 };
+
+const formDeleteCard = new FormDelete({popup: '.popup-deleteCard', handelSubmit: (id,el)=>{
+  api.deleteCard(id)
+}})
 
 const user = new UserInfo({name: '.profile-info__title', about:'.profile-info__subtitle', avatar: '.profile__avatar'});
 api.getUser().then(data=> {user.setUserInfo({name: data.name, about:data.about})})
@@ -99,7 +104,7 @@ const formCard = new PopupWithForm({
     formCard.renderLoading(true);
     api.addNewCard(formData)
     .then((data)=>{cardsList.renderer(data)})
-    .finally(()=>formDeleteCard.renderLoading(false));
+    .finally(()=>formCard.renderLoading(false));
   }
 });
 
@@ -120,7 +125,7 @@ const formAvatar = new PopupWithForm({
     .then(data=>{
       user.editAvatar(data.avatar)
     })
-    .finally(()=>formDeleteCard.renderLoading(false));
+    .finally(()=>formAvatar.renderLoading(false));
   }
 });
 
