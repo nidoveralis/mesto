@@ -4,26 +4,26 @@ export class Api{
     this._headers = data.headers;
   };
 
+  _getResponseData(res) {
+    if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`); 
+    }
+    return res.json();
+  };
+
   getUser() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
+    .then(res => this._getResponseData(res)
+    )
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
+    .then(res => this._getResponseData(res))
   };
 
   editUser(data) {
@@ -36,11 +36,7 @@ export class Api{
       })
     },
     )
-    .then(res=>{
-      if (res.ok) {
-        return res.json()
-      }
-    })
+    .then(res=>this._getResponseData(res))
   };
 
   addNewCard(data) {
@@ -52,11 +48,7 @@ export class Api{
         link: data.link
       })
     })
-    .then(res=>{
-      if (res.ok) {
-        return res.json()
-      }
-    })
+    .then(res=>this._getResponseData(res))
   };
 
   deleteCard(data) {
@@ -64,11 +56,7 @@ export class Api{
       method: 'DELETE',
       headers: this._headers
     })
-    .then(res=>{
-      if (res.ok) {
-        return res.json()
-      }
-    })
+    .then(res=>this._getResponseData(res))
   };
 
   addlike(cardId) {
@@ -76,11 +64,7 @@ export class Api{
       method: 'PUT',
       headers: this._headers
     })
-    .then(res=>{
-      if (res.ok) {
-        return res.json()
-      }
-    })
+    .then(res=>this._getResponseData(res))
   };
 
   deleteLike(cardId) {
@@ -88,11 +72,7 @@ export class Api{
       method: 'DELETE',
       headers: this._headers
     })
-    .then(res=>{
-      if (res.ok) {
-        return res.json()
-     }
-    })
+    .then(res=>this._getResponseData(res))
   };
 
   showAvatar() {
@@ -100,11 +80,7 @@ export class Api{
       headers: this._headers,
     },
     )
-    .then(res=>{
-      if (res.ok) {
-        return res.json()
-      }
-    })
+    .then(res=>this._getResponseData(res))
   };
 
   editAvatar(data) {
@@ -116,10 +92,6 @@ export class Api{
       })
     },
     )
-    .then(res=>{
-      if (res.ok) {
-        return res.json()
-      }
-    })
+    .then(res=>this._getResponseData(res))
   };
 };

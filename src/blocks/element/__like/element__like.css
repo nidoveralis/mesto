@@ -12,6 +12,7 @@
   height: 19px;
   align-self: center;
   width: 100%;
+  cursor: pointer;
 }
 
 .element__like:hover {

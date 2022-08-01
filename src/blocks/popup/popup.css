@@ -1,5 +1,4 @@
 .popup {
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,6 +20,7 @@
 }
 
 .popup::before {
+  cursor: pointer;
   background-color: #000;
   opacity: .5;
   position: absolute;

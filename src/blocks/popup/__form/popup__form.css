@@ -9,6 +9,7 @@
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+  cursor: default;
 }
 
 @media screen and (min-width: 461px) {
