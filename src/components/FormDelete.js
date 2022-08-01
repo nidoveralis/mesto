@@ -7,11 +7,10 @@ export class FormDelete extends Popup {
     this._form = this._popup.querySelector('.popup__form');
   };
 
-  camelCase(id) {
+  camelCase({data, handelSubmit}) {
     this._form.addEventListener('submit',(e)=> {
       e.preventDefault();
-      this._handleSubmit(id)
-      this.close();
+      handelSubmit(data)
   });
   };
 }

@@ -4,7 +4,7 @@ export class Card {
     data,
     templeteElement,
     handleCardClick,
-    handelCardDelete,
+    {handlerCardDelete},
     {addLike},{deleteLike}) {
       this._userId = userId,
     this._idOwner = data.owner._id;
@@ -14,7 +14,7 @@ export class Card {
     this._likes = data.likes;
     this._templeteElement = templeteElement;
     this._handleCardClick = handleCardClick;
-    this._handelCardDelete = handelCardDelete;
+    this._handlerCardDelete = handlerCardDelete;
     this._addLike = addLike;
     this._deleteLike = deleteLike;
   };
@@ -55,8 +55,11 @@ export class Card {
   };
 
   _deleteCard() {
-    this._handelCardDelete(this._id);
-    this._element.remove();
+    this._handlerCardDelete(this._id, this._element);
+  };
+
+  removeCard(element) {
+    element.remove();
   };
 
   _likeCard() {
@@ -68,7 +71,7 @@ export class Card {
       this._deleteLike(this._id);
       this._cardLike.classList.remove("element__like_active");
     }
-  }
+  };
 
   countlike(count) {///показывает колличество лайков
     this._likes = count.likes;

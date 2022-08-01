@@ -32,7 +32,17 @@ function handleCardClick(data) {
 };
 
 function createCard(item, userId) {///создаёт карточку
-  const card = new Card(userId._id,item, templeteElement, handleCardClick, handelCardDelete,  
+  const card = new Card(userId._id,item, templeteElement, handleCardClick, 
+    {handlerCardDelete: (id, item)=>{
+      formDeleteCard.open();
+      formDeleteCard.camelCase({data: item, handelSubmit: (element)=>{
+        api.deleteCard(id)
+        .then(()=> {
+          card.removeCard(element);
+          formDeleteCard.close();
+        })
+      }});
+    }},  
     {addLike: (id)=>{
       api.addlike(id)
       .then(data=>card.countlike(data))
@@ -46,14 +56,7 @@ function createCard(item, userId) {///создаёт карточку
   return cardElement
 };
 
-function handelCardDelete(id) {////отправляет форме данные для удаления
-  formDeleteCard.open();
-  formDeleteCard.camelCase(id);
-};
-
-const formDeleteCard = new FormDelete({popup: '.popup-deleteCard', handelSubmit: (id)=>{
-  api.deleteCard(id)
-}})
+const formDeleteCard = new FormDelete({popup: '.popup-deleteCard'})
 
 const user = new UserInfo({name: '.profile-info__title', about:'.profile-info__subtitle', avatar: '.profile__avatar'});
 api.getUser().then(data=> {user.setUserInfo({name: data.name, about:data.about})})
@@ -64,6 +67,7 @@ const formUser = new PopupWithForm({
     formUser.renderLoading(true);
     api.editUser(formData).then((data)=>{
       user.setUserInfo(data);
+      formUser.close();
     })
     .finally(()=>formUser.renderLoading(false));
   }
@@ -77,8 +81,7 @@ function openProfileForm() {
 Promise.all([ //в Promise.all передаем массив промисов которые нужно выполнить
   api.getUser(),
   api.getInitialCards()
-]).then((items)=>{
-  items[1].forEach(item=>{cardsList.renderer(item, items[0])});
+]).then(([userId, items])=>{cardsList.renderItems(items, userId)
 });
 
 
@@ -93,7 +96,10 @@ const formCard = new PopupWithForm({
     Promise.all([
       api.getUser(),
       api.addNewCard(formData)])
-    .then((data)=>{cardsList.renderer(data[1],data[0])})
+    .then((data)=>{
+      cardsList.renderer(data[1],data[0]);
+      formCard.close();
+    })
     .finally(()=>formCard.renderLoading(false));
   }
 });
@@ -113,7 +119,8 @@ const formAvatar = new PopupWithForm({
     formAvatar.renderLoading(true);
     api.editAvatar(formData)
     .then(data=>{
-      user.editAvatar(data.avatar)
+      user.editAvatar(data.avatar);
+      formAvatar.close();
     })
     .finally(()=>formAvatar.renderLoading(false));
   }
