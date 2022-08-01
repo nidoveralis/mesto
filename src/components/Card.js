@@ -1,21 +1,20 @@
 export class Card {
   constructor(
+    userId,
     data,
     templeteElement,
     handleCardClick,
     handelCardDelete,
-    { activDeleteIcon },
-    { like }, {addLike},{deleteLike}) {
-    this._idUser = data.owner._id;
+    {addLike},{deleteLike}) {
+      this._userId = userId,
+    this._idOwner = data.owner._id;
     this._id = data._id;
     this._title = data.name;
     this._link = data.link;
     this._likes = data.likes;
     this._templeteElement = templeteElement;
     this._handleCardClick = handleCardClick;
-    this._activDeleteIcon = activDeleteIcon;
     this._handelCardDelete = handelCardDelete;
-    this._showLike = like;
     this._addLike = addLike;
     this._deleteLike = deleteLike;
   };
@@ -25,6 +24,11 @@ export class Card {
       .querySelector(".element")
       .cloneNode(true);
     return newCard;
+  };
+
+  _activeDelete() {
+    if(this._idOwner === this._userId){
+    this._cardDelete.classList.add("element__delete_active");}
   };
 
   generationCard() {
@@ -37,7 +41,7 @@ export class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._title;
     this._countLike.textContent = this._likes.length;
-    this._activDeleteIcon(this._idUser);
+    this._activeDelete();
     this._setEventListeners();
     return this._element;
   };
@@ -50,26 +54,19 @@ export class Card {
     });
   };
 
-  activeDelete() {
-    this._cardDelete.classList.add("element__delete_active");
-  };
-
   _deleteCard() {
-    this._handelCardDelete(this._id, this._element);
+    this._handelCardDelete(this._id);
     this._element.remove();
   };
 
   _likeCard() {
-    this._cardLike.classList.toggle("element__like_active");
-    this._showLike(this._id);
-  };
-
-  likes(data) {
-    const myLike = this._likes.some(item=> item._id===data._id)
+    const myLike = this._likes.some(item=> item._id === this._userId)
     if(!myLike){
       this._addLike(this._id);
+      this._cardLike.classList.add("element__like_active");
     }else{
       this._deleteLike(this._id);
+      this._cardLike.classList.remove("element__like_active");
     }
   }
 

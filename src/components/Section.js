@@ -5,8 +5,8 @@ export class Section {
     this._container = document.querySelector(container);
   };
 
-  renderer(item) {
-    this._renderer(item, this._metodAdd);
+  renderer(item,id) {
+    this._renderer(item,id);
   };
 
   addItem(item) {

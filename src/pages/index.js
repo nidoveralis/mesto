@@ -31,16 +31,8 @@ function handleCardClick(data) {
   picture.open(data);
 };
 
-function createCard(item) {///создаёт карточку
-  const card = new Card(item, templeteElement, handleCardClick, handelCardDelete, 
-    {activDeleteIcon: (id)=>{
-    api.getUser().then((data)=>{
-      if(data._id === id){ ///сравнивает id
-        card.activeDelete();
-      }})}}, 
-    {like: ()=> {///добавляет лайки и возвращает их колличество
-      api.getUser().then(data=> card.likes(data))
-    }},
+function createCard(item, userId) {///создаёт карточку
+  const card = new Card(userId._id,item, templeteElement, handleCardClick, handelCardDelete,  
     {addLike: (id)=>{
       api.addlike(id)
       .then(data=>card.countlike(data))
@@ -54,12 +46,12 @@ function createCard(item) {///создаёт карточку
   return cardElement
 };
 
-function handelCardDelete(id, elem) {////отправляет форме данные для удаления
+function handelCardDelete(id) {////отправляет форме данные для удаления
   formDeleteCard.open();
-  formDeleteCard.camelCase(id,elem);
+  formDeleteCard.camelCase(id);
 };
 
-const formDeleteCard = new FormDelete({popup: '.popup-deleteCard', handelSubmit: (id,el)=>{
+const formDeleteCard = new FormDelete({popup: '.popup-deleteCard', handelSubmit: (id)=>{
   api.deleteCard(id)
 }})
 
@@ -82,28 +74,26 @@ function openProfileForm() {
   formUser.setInputValues(user.getUserInfo());
 };
 
-api.getInitialCards().then((items)=>{
-  items.forEach(item=>{cardsList.renderer(item)});
+Promise.all([ //в Promise.all передаем массив промисов которые нужно выполнить
+  api.getUser(),
+  api.getInitialCards()
+]).then((items)=>{
+  items[1].forEach(item=>{cardsList.renderer(item, items[0])});
 });
 
-//Promise.all([ //в Promise.all передаем массив промисов которые нужно выполнить
-  //api.getUser(),
-  //api.getInitialCards()
-//]).then((items)=>{console.log(items)
-  //items.forEach(item=>{cardsList.renderer(item)});
-//});
 
-
-const cardsList = new Section({renderer: (cardItem)=>{ 
-  cardsList.addItem(createCard(cardItem))}},
+const cardsList = new Section({renderer: (cardItem, userId)=>{ 
+  cardsList.addItem(createCard(cardItem, userId))}},
    '.elements');
 
 const formCard = new PopupWithForm({
   popup: '.popup-elements',
   handelSubmit: (formData) => {
     formCard.renderLoading(true);
-    api.addNewCard(formData)
-    .then((data)=>{cardsList.renderer(data)})
+    Promise.all([
+      api.getUser(),
+      api.addNewCard(formData)])
+    .then((data)=>{cardsList.renderer(data[1],data[0])})
     .finally(()=>formCard.renderLoading(false));
   }
 });
