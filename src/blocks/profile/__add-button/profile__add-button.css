@@ -11,6 +11,7 @@
   -moz-border-radius: 2px;
   -ms-border-radius: 2px;
   -o-border-radius: 2px;
+  cursor: pointer;
 }
 @media screen and (min-width: 740px) {
   .profile__add-button {

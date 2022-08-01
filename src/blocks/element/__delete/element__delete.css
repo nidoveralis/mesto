@@ -1,4 +1,5 @@
 .element__delete {
+  cursor: default;
   display: none;
   background-image: url('../../../images/icon__delete.svg');
   background-repeat: no-repeat;

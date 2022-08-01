@@ -1,5 +1,4 @@
 .button {
-  cursor: pointer;
   transition: opacity .3s linear;
   -webkit-transition: opacity .3s linear;
   -moz-transition: opacity .3s linear;
