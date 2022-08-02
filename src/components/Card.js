@@ -6,7 +6,7 @@ export class Card {
     handleCardClick,
     {handlerCardDelete},
     {addLike},{deleteLike}) {
-      this._userId = userId,
+    this._userId = userId,
     this._idOwner = data.owner._id;
     this._id = data._id;
     this._title = data.name;

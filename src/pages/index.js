@@ -3,7 +3,7 @@ import { Card } from "../components/Card.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
-import { FormDelete } from "../components/FormDelete.js";
+import { PopupWithDeleteForm } from "../components/PopupWithDeleteForm.js";
 import { Section } from "../components/Section.js";
 import "./index.css";
 import {editButton, avatar, addButton, templeteElement, profileAvatar, objectValid, config} from "../utils/constants.js"
@@ -32,10 +32,10 @@ function handleCardClick(data) {
 };
 
 function createCard(item, userId) {///создаёт карточку
-  const card = new Card(userId._id,item, templeteElement, handleCardClick, 
+  const card = new Card(userId._id, item, templeteElement, handleCardClick, 
     {handlerCardDelete: (id, item)=>{
       formDeleteCard.open();
-      formDeleteCard.camelCase({data: item, handelSubmit: (element)=>{
+      formDeleteCard.setEventSubmit({data: item, handelSubmit: (element)=>{
         api.deleteCard(id)
         .then(()=> {
           card.removeCard(element);
@@ -56,7 +56,7 @@ function createCard(item, userId) {///создаёт карточку
   return cardElement
 };
 
-const formDeleteCard = new FormDelete({popup: '.popup-deleteCard'})
+const formDeleteCard = new PopupWithDeleteForm({popup: '.popup-deleteCard'})
 
 const user = new UserInfo({name: '.profile-info__title', about:'.profile-info__subtitle', avatar: '.profile__avatar'});
 api.getUser().then(data=> {user.setUserInfo({name: data.name, about:data.about})})
@@ -93,13 +93,13 @@ const formCard = new PopupWithForm({
   popup: '.popup-elements',
   handelSubmit: (formData) => {
     formCard.renderLoading(true);
-    Promise.all([
-      api.getUser(),
-      api.addNewCard(formData)])
-    .then((data)=>{
-      cardsList.renderer(data[1],data[0]);
-      formCard.close();
-    })
+      api.addNewCard(formData)
+      .then(value=>{
+        api.getUser().then(data=>{
+          cardsList.renderer(value, data);
+        })
+        formCard.close();
+      })
     .finally(()=>formCard.renderLoading(false));
   }
 });
