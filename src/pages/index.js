@@ -23,6 +23,8 @@ const enableValidation = (config) => {
 
 const api = new Api(config);
 
+let userId = null;
+
 enableValidation('.popup__form');
 
 const picture = new PopupWithImage('.popup-picture');
@@ -81,13 +83,15 @@ function openProfileForm() {
 Promise.all([ //в Promise.all передаем массив промисов которые нужно выполнить
   api.getUser(),
   api.getInitialCards()
-]).then(([userId, items])=>{cardsList.renderItems(items, userId)
+]).then(([id, items])=>{
+  userId = id;
+  cardsList.renderItems(items)
 });
 
 
-const cardsList = new Section({renderer: (cardItem, userId)=>{ 
-  cardsList.addItem(createCard(cardItem, userId))}},
-   '.elements');
+const cardsList = new Section({renderer: (cardItem)=>{ 
+  cardsList.addItem(createCard(cardItem, userId))
+}}, '.elements');
 
 const formCard = new PopupWithForm({
   popup: '.popup-elements',
@@ -95,9 +99,7 @@ const formCard = new PopupWithForm({
     formCard.renderLoading(true);
       api.addNewCard(formData)
       .then(value=>{
-        api.getUser().then(data=>{
-          cardsList.renderer(value, data);
-        })
+        cardsList.renderer(value, userId);
         formCard.close();
       })
     .finally(()=>formCard.renderLoading(false));
